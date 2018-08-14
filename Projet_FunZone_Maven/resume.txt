@@ -1,0 +1,93 @@
+1: Fichier pom.xml : charger toutes les librairies, click droit -> maven -> update -> forceUpdate
+Bien penser à charger les modules permettant l'intégration des librairie dans spring
+(Web pour jsf, orm pour hibernate, etc)
+
+2:	-click droit sur projet -> properties -> projectFacets -> decocher javaFaces -> apply -> recocher pour disable library => génère le faces-config
+	-charger fichier web.xml, click droit sur Deployment Descriptor -> generate deployment descriptor stub 
+	-Il est conseillé de mettre l'application-context.xml dans le même dossier que les autres fichiers de configuration
+		=> dans le WEB-INF de webapp de src
+		on coche beans, context et tx
+		
+		1*INTEGRATION D'HIBERNATE DANS SPRING IOC
+		Dans le fichier de config application-context.xml
+			-activation de la detection des annotations de l'injection de dependances: @Autowired, @Value, @ Resource et @ inject
+					
+			-activation de l'autoscan des composants : @Component, @Service, @Controller et @Repository
+				
+			-declarer les informations pour la connexion à la DB, pour le rendre independant du server
+				=> externaliser la déclaration :création d'un fichier db.properties dans java/main/resources ((attention les espaces à la fin compte -> passer directement à la ligne). 
+				Il faut penser à spécifier 	le chemin du fichier .properties dans le fichier application-context.xml
+					<context:property-placeholder location="classpath*:db.properties"/>
+				l'étoile permet de dire que il recherchera partout dans le fichier classpath un fichier qui correspond à ce nom
+				puis <!-- déclaration du bean datasource -->
+				
+			-déclarer les informations lié à Hibernate	
+				<!-- définition du Bean SessionFactory, pour pouvoir récupérer l'injection 
+				lors de son instanciation automatique par le conteneur -->
+				<!-- injection par modificateur d'un collaborateur pour l'attribut dataSource 
+				de la class LocalSessionFactoryBean -->
+				<!-- spécifier les classes persistentes grâce à la balise property => permet 
+				de scanner directement un package -->
+				<!-- spécifier les propriétés de hibernate -->
+			
+			-développer un transactionManager = gestionnaire de transaction
+			-activer la detection des annotation des transactions @Transactional
+		
+		2*INTEGRATION DE JSF DANS SPRING IOC
+		Dans Faces-config, il faut lever l'ambiguité entre les expression language de spring IoC et celle de jsf
+				<application>
+					<el-resolver>
+						org.springframework.web.jsf.el.SpringBeanFacesELResolver
+					</el-resolver>
+				</application>
+				
+		Dans le web.xml
+			-déclaration du listener (non obligatoire à partir version 4) 
+			-spécifier le chemin du fichier de config au context
+			=> permet au conteneur web de récupérer le context de Spring IoC 
+			(remplace de la classTest ApplicationContext cxt=new ClassPathXmlApplicationContext("application-context.xml")  )
+			-déclaration de la servlet unique
+			-mapping de la servlet unique
+			-déclaration de la page d'accueil
+		
+3:ajouter le serveur
+	pour tester le lancement,
+		systématiquement :
+			-clean install
+			-refresh
+			
+			
+4:création des interfaces et class de Dao et Service
+	développement
+	
+	DAO
+		1:déclarer le bean avec les annotations  @repository
+		2:on peut faire l'injection des sessionFactory par ex. Faire un setter pour l'injection dependance
+			on met l'annotation @autowired (sur l'attribut ou sur le setter)
+		3:développer les methodes
+	SERVICE
+		1:déclarer le bean avec les annotations @Service, on peut renommer le bean
+		2: injection dépendance de l'asso UML en java (appeler le DAO) avec annotation @Autowired (penser à mettre le setter)
+		3: on fait une injection dependance pour la Transaction @Transactional sur le class. On le fait sur Service,
+		pour qu'il n'y ai qu'une transaction créée (alors que si on la met dans Dao, et qu'on appelle plusieurs méthodes en même temps
+		de Dao, plusieurs transaction seront instancié)
+		4:développer les methodes
+		
+	MANAGEDBEAN
+		1:implements Serializable + annotation @managedBean, @RequestScoped sur la class
+		2:déclarer les attributs + constructeur vide avec instanciation des attribut (pour éviter targetUnreacheable) + getter et setter
+		3:transformation asso UML en java
+			ici, si on utilise @Component ou @Controller, on utilise le conteneur Spring IoC. 
+			On préfère garder l'utilisation du conteneur web pour la partie Vue
+			=> on utilise @ManagedProperty NECESSITE OBLIGATOIREMENT UN SETTER pour cette injection dépendance
+			attribut value avec expression language pour appeler le nom mis dans le bean de service
+		4:développer les methodes
+
+
+
+
+
+
+
+
+
