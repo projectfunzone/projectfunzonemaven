@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Des armes pour les Supers Héros</title>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+<h:body>
+	<ui:insert>
+		<ui:include src="/templates/clientHeader.xhtml" />
+	</ui:insert>
+
+	<!-- Galerie promotionnelle affichant les produits disponibles sur le site -->
+	<p:contentFlow value="#{imgMB.images}" var="image">
+		<p:graphicImage value="resources/images/#{image}" styleClass="content" />
+		<div class="caption">#{image}</div>
+	</p:contentFlow>
+</h:body>
+</html>

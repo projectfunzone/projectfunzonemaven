@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+<h:body>
+	<ui:insert>
+		<ui:include src="/templates/clientHeader.xhtml" />
+	</ui:insert>
+
+	<h1>Connexion Client</h1>
+
+	<h:form>
+		<h:panelGrid columns="2">
+		Adresse Mail*: <p:inputText value="#{clMB.client.email}" label="email"
+				required="true" />
+		Mot de passe*: <p:inputText value="#{clMB.client.mdpClient}"
+				label="Mot de passe" required="true" />
+
+		</h:panelGrid>
+
+		<p:commandButton value="Se connecter" action="#{clMB.seConnecter}"
+			update="@all" />
+	</h:form>
+	<br/>
+	<br/>
+	<h:form>
+		<p:commandLink value="Pas encore client ?" action="addClient.xhtml" />
+	</h:form>
+	<h1 style="color: red; text-align: center">
+		<h:messages />
+	</h1>
+
+
+</h:body>
+</html>

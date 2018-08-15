@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+
+	<ui:insert>
+		<ui:include src="/templates/adminHeader.xhtml" />
+	</ui:insert>
+
+	<h1>Liste des clients de FunZone</h1>
+	<p:dataTable var="cl" value="#{clMB.listeAllClients}">
+
+		<p:column headerText="Id">
+			<h:outputText value="#{cl.idClient}" />
+		</p:column>
+
+		<p:column headerText="Nom">
+			<h:outputText value="#{cl.nomClient}" />
+		</p:column>
+
+		<p:column headerText="Adresse">
+			<h:outputText value="#{cl.adresse}" />
+		</p:column>
+
+		<p:column headerText="Email">
+			<h:outputText value="#{cl.email}" />
+		</p:column>
+
+		<p:column headerText="Téléphone">
+			<h:outputText value="#{cl.tel}" />
+		</p:column>
+	</p:dataTable>
+
+</h:body>
+</html>

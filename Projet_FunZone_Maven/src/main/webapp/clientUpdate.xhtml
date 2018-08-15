@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<ui:insert>
+		<ui:include src="/templates/clientHeader.xhtml" />
+	</ui:insert>
+
+	<h1>Modifier un compte client</h1>
+
+	<h:form>
+		<h:panelGrid columns="2">
+		Id du client à modifier*: <p:inputText value="#{clMB.client.idClient}"
+				label="Id" required="true" />
+		</h:panelGrid>
+		<p:commandButton value="Rechercher" action="#{clMB.getClientById}"
+			update="@all" />
+
+		<h:panelGrid columns="2">
+		Nom: <p:inputText value="#{clMB.client.nomClient}" label="Nom" />
+		Adresse: <p:inputText value="#{clMB.client.adresse}" label="Adresse" />
+		Téléphone: <p:inputText value="#{clMB.client.tel}" label="Téléphone" />
+		Email: <p:inputText value="#{clMB.client.email}" label="Email" />
+
+		</h:panelGrid>
+
+		<p:commandButton value="Modifier" action="#{clMB.updateClient}"
+			update="@all" />
+	</h:form>
+
+	<h1 style="color: red; text-align: center">
+		<h:messages />
+	</h1>
+
+</h:body>
+</html>
