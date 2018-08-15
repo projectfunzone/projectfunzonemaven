@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import fr.adaming.model.Admin;
 import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
 
@@ -235,6 +236,75 @@ public class ClientManagedBean implements Serializable {
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produit"));
 			return "clientUpdateMdp";
+		}
+
+	}
+	
+	/**
+	 * Méthode qui permet au client de se connecter à n'importe quel moment dans
+	 * le site pour récupérer les informations de son compte
+	 * 
+	 * @return
+	 */
+	public String seConnecter() {
+
+		// Vérifie si le client est déjà connecté => on vérifie s'il y a déjà un
+		// client dans la session
+		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession") != null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous êtes déjà connecté"));
+			return "accueil";
+		} else {
+			// si le client n'est pas connecter, on appelle la méthode pour
+			// vérifier le mail et le mdp
+			int verif = clientService.connectionClient(this.client);
+
+			switch (verif) {
+			// si le retour de la méthode = 0, le mail n'existe pas => pas de
+			// compte client dans la DB
+			case 0:
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Il n'y a pas de compte client associé à cette adresse email"));
+				return "loginClient";
+			// si le retour de la méthode = 1, la connexion a réussi et on
+			// ajoute le client dans la session
+			case 1:
+				this.client = (Client) clientService.getClientByIdNomMail(client).get(0);
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clSession", this.client);
+
+				return "accueil";
+			case 2:
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe est erroné"));
+				return "loginClient";
+			default:
+				return "accueil";
+
+			}
+		}
+	}
+	
+	public String seDeconnecter() {
+
+		// vérifié qu'un client est déjà connecté
+		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession") != null) {
+
+			//(FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+
+			if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession") != null) {
+
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("La déconnexion n'a pas fonctionné"));
+				return "clientLogout";
+
+			} else {
+
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous n'êtes plus connecté"));
+				return "clientAccueil";
+			}
+
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Vous n'êtes pas connecté à un compte client"));
+			return "clientLogin";
 		}
 
 	}

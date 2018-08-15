@@ -65,23 +65,57 @@ public class AdminManagedBean implements Serializable {
 	}
 
 	public String seConnecter() {
-		
-		//recuperer l'admin
-		Admin adIn = adminService.connectionAdmin(this.admin);
 
-		if (adIn != null) {
+		//vérifier que l'admin n'est pas déjà connecter
+		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("adminSession") == null) {
 
-			// mettre l'administrateur dans la Session
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", adIn);
+			// recuperer l'admin
+			Admin adIn = adminService.connectionAdmin(this.admin);
 
-			return "adminAccueil";
+			if (adIn != null) {
+
+				// mettre l'administrateur dans la Session
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", adIn);
+
+				return "adminAccueil";
+			} else {
+
+				// message d'erreur
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Connexion fail"));
+
+			}
+			return "adminLogin";
 		} else {
-			
-			//message d'erreur
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Connexion fail"));
-
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Vous êtes déjà connecté à un compte admin"));
+			return "adminAccueil";
 		}
-		return "adminLogin";
+	}
+
+	public String seDeconnecter() {
+
+		// vérifié qu'un admin est déjà connecté
+		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("adminSession") != null) {
+
+				//FacesContext.getCurrentInstance().getExternalContext().getSessionId(true).invalidate();
+
+			if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("adminSession") != null) {
+
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("La déconnexion n'a pas fonctionné"));
+
+			} else {
+
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous n'êtes plus connecté"));
+
+			}
+
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Vous n'êtes pas connecté à un compte admin"));
+		}
+
+		return "";
 	}
 
 }

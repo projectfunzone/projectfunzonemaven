@@ -55,4 +55,6 @@ public interface IClientService {
 	 * @return retourne 1 si modifié, retourne 0 si non modifié
 	 */
 	public int updateClientMdp(Client cl);
+	
+	public int connectionClient(Client cl);
 }
