@@ -35,6 +35,6 @@
 
 	<!-- la page d'accueil de mon projet -->
 	<welcome-file-list>
-		<welcome-file>accueil.xhtml</welcome-file>
+		<welcome-file>adminAccueil.xhtml</welcome-file>
 	</welcome-file-list>
 </web-app>
