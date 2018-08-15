@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Client;
@@ -287,7 +288,7 @@ public class ClientManagedBean implements Serializable {
 		// vérifié qu'un client est déjà connecté
 		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession") != null) {
 
-			//(FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+			((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
 
 			if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession") != null) {
 

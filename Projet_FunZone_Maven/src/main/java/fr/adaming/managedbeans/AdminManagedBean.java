@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Admin;
 import fr.adaming.service.IAdminService;
@@ -97,7 +98,7 @@ public class AdminManagedBean implements Serializable {
 		// vérifié qu'un admin est déjà connecté
 		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("adminSession") != null) {
 
-				//FacesContext.getCurrentInstance().getExternalContext().getSessionId(true).invalidate();
+			((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
 
 			if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("adminSession") != null) {
 
