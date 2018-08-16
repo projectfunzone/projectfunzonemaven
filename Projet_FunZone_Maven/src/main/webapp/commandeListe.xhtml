@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+<h:body>
+	<ui:insert>
+		<ui:include src="/templates/adminHeader.xhtml" />
+	</ui:insert>
+
+	<h1>Liste des commandes clients</h1>
+	<p:dataTable var="cmd" value="#{cmdMB.listeAllCommandes}">
+
+		<p:column headerText="N° commande">
+			<h:outputText value="#{cmd.idCommande}" />
+		</p:column>
+
+		<p:column headerText="Date de la commande">
+			<h:outputText value="#{cmd.dateCommande}" >
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="Europe/Paris"/>
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Client">
+			<h:outputText value="#{cmd.client.nomClient}" />
+		</p:column>
+
+
+	</p:dataTable>
+
+
+</h:body>
+</html>
