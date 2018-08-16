@@ -78,19 +78,17 @@ public class AdminManagedBean implements Serializable {
 				// mettre l'administrateur dans la Session
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", adIn);
 
-				return "adminAccueil";
 			} else {
 
 				// message d'erreur
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Connexion fail"));
 
 			}
-			return "adminLogin";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Vous êtes déjà connecté à un compte admin"));
-			return "adminAccueil";
 		}
+		return "";
 	}
 
 	public String seDeconnecter() {

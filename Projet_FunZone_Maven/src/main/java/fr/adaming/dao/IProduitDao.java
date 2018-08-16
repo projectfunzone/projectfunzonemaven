@@ -11,5 +11,11 @@ public interface IProduitDao {
 	public List<Produit> searchProduitBy (Produit produit);
 	
 	public Produit searchProduitById (Produit produit);
+	
+	public Produit addProduit(Produit pr);
+	
+	public int updateProduit(Produit pr);
+
+	public int deleteProduit(Produit pr);
 
 }

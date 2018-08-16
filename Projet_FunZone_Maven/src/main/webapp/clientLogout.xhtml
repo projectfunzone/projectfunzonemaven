@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+
+	<ui:insert>
+		<ui:include src="/templates/clientHeader.xhtml" />
+	</ui:insert>
+
+	<h1>Déconnexion Client</h1>
+
+	<h:form>
+		Êtes vous sur de vouloir vous déconnecter ?
+
+		
+
+		<p:commandButton value="Oui" action="#{clMB.seDeconnecter}"
+			update="@all" />
+
+		<p:commandButton value="Retourner à l'accueil"
+			action="clientAccueil.xhtml" />
+	</h:form>
+
+	<h1 style="color: red; text-align: center">
+		<h:messages />
+	</h1>
+</h:body>
+</html>

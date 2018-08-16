@@ -157,16 +157,16 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	/**
-	 * Ajouter un produit dans son panier en passant par
-	 * une ligne de commande. Ce panier n'est pas stocké dans la base de donnée
-	 * (transient) mais uniquement dans la session créée pour l'occasion
+	 * Ajouter un produit dans son panier en passant par une ligne de commande.
+	 * Ce panier n'est pas stocké dans la base de donnée (transient) mais
+	 * uniquement dans la session créée pour l'occasion
 	 */
 	public String addProdPanier() {
 
 		// le panier dans la session est récupérer dans le postConstruct
 
 		// on récupere le produit de la base de donnée.
-		Produit prOut = panierService.getProduitbyId(this.produit);
+		Produit prOut = produitService.searchProduitById(this.produit);
 
 		// on créer alors la ligne de commande associée
 		LigneCommande lcOut = panierService.ajoutProdPanier(prOut, quantite);
@@ -186,17 +186,15 @@ public class PanierManagedBean implements Serializable {
 
 			// on ajoute à la session PanierClient la nouveau panier
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
-			// on renvoie au panier
-			return "panierClient";
 
 		} else {
 
 			// Message d'erreur suite à la tentative d'ajout de produit au
 			// panier
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout a échoué"));
-
-			return "addPanier";
 		}
+		// on renvoie au panier
+		return "";
 
 	}
 

@@ -31,6 +31,10 @@ public class ProduitManagedBean {
 
 	private List<Produit> listeProduitFiltre;
 
+	private List<Produit> listeProduitsDebutant;
+
+	private List<Produit> listeProduitsFlash;
+
 	private UploadedFile file;
 
 	@ManagedProperty(value = "#{prService}")
@@ -49,17 +53,28 @@ public class ProduitManagedBean {
 		this.categorieService = categorieService;
 	}
 
+	/**
+	 * Constructeur
+	 */
 	public ProduitManagedBean() {
 		super();
 		this.produit = new Produit();
 		this.categorie = new Categorie();
 	}
 
+	/**
+	 * postcontructeur
+	 */
 	@PostConstruct
 	public void init() {
 		this.listeProduit = produitService.getAllProduit();
 	}
 
+	/**
+	 * getter et setteur
+	 * 
+	 * @return
+	 */
 	public Produit getProduit() {
 		return produit;
 	}
@@ -108,6 +123,27 @@ public class ProduitManagedBean {
 		this.categorie = categorie;
 	}
 
+	public List<Produit> getListeProduitsDebutant() {
+		return listeProduitsDebutant;
+	}
+
+	public void setListeProduitsDebutant(List<Produit> listeProduitsDebutant) {
+		this.listeProduitsDebutant = listeProduitsDebutant;
+	}
+
+	public List<Produit> getListeProduitsFlash() {
+		return listeProduitsFlash;
+	}
+
+	public void setListeProduitsFlash(List<Produit> listeProduitsFlash) {
+		this.listeProduitsFlash = listeProduitsFlash;
+	}
+
+	/**
+	 * Les Methodes
+	 *
+	 */
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean filterByPrice(Object value, Object filter, Locale locale) {
 		String filterText = (filter == null) ? null : filter.toString().trim();
@@ -137,18 +173,17 @@ public class ProduitManagedBean {
 	}
 
 	public String searchProduitById() {
-		
-		Produit prOut=produitService.searchProduitById(this.produit);
-		
+
+		Produit prOut = produitService.searchProduitById(this.produit);
+
 		if (prOut != null) {
-			this.produit=prOut;
-			Categorie catOut=categorieService.getCategorieByIdOrNom(this.produit.getCategorie());
-			
-			if (catOut != null){
-				this.categorie=catOut;
+			this.produit = prOut;
+			Categorie catOut = categorieService.getCategorieByIdOrNom(this.produit.getCategorie());
+
+			if (catOut != null) {
+				this.categorie = catOut;
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Une erreur s'est produite"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produite"));
 			}
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -157,5 +192,74 @@ public class ProduitManagedBean {
 
 		return "";
 
+	}
+
+	/**
+	 * supprimer une produit du site
+	 */
+	public String deleteProduit() {
+
+		int verif = produitService.deleteProduit(this.produit);
+
+		if (verif != 0) {
+
+		} else {
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Suppression invalide"));
+
+		}
+		// renvoie vers la page XHTML d'ajout d'une categorie
+		return "";
+	}
+
+	/**
+	 * modifier une produit au site
+	 */
+	public String updateProduit() {
+
+		int verif = produitService.updateProduit(this.produit, this.categorie);
+
+		if (verif != 0) {
+
+		} else {
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Modification invalide"));
+
+		}
+		// renvoie vers la page XHTML d'ajout d'une categorie
+		return "";
+	}
+
+	/**
+	 * ajouter une nouvelle categorie au site
+	 */
+	public String addProduit() {
+
+		// on charge le dossier dans l'attribut photo de la classe Categorie
+		this.produit.setPhoto(file.getContents());
+
+		Produit pAjout = produitService.addProduit(this.produit, this.categorie);
+
+		// on teste ici l'existence de cet ajout
+		if (pAjout.getIdProduit() != 0) {
+
+			// On regarde si dans la description du produit il est fait mention
+			// de
+			// "superhéros" et si oui on ajoute le produit créé dans la liste
+			// des débutants aka "superhéros"
+			if (pAjout.getDescription().contentEquals("superhéros")) {
+				listeProduitsDebutant.add(pAjout);
+			}
+			if (pAjout.isVenteFlash()) {
+				listeProduitsFlash.add(pAjout);
+			}
+
+		} else {
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Entrée invalide"));
+
+		}
+		// renvoie vers la page XHTML d'ajout d'une categorie
+		return "";
 	}
 }

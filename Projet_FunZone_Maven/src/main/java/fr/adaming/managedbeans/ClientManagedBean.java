@@ -167,11 +167,11 @@ public class ClientManagedBean implements Serializable {
 			this.listeAllClients = clientService.getAllClients();
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le compte a bien été crée"));
-			return "clientAccueil";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produit"));
-			return "clientAdd";
+
 		}
+		return "";
 	}
 
 	/**
@@ -189,11 +189,11 @@ public class ClientManagedBean implements Serializable {
 			this.listeAllClients = clientService.getAllClients();
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le compte a bien été supprimé"));
-			return "adminAccueil";
+
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produit"));
-			return "adminClientDelete";
 		}
+		return "";
 
 	}
 
@@ -212,11 +212,12 @@ public class ClientManagedBean implements Serializable {
 			this.listeAllClients = clientService.getAllClients();
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modif a été prise en compte"));
-			return "adminAccueil";
+
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produit"));
-			return "clientUpdate";
+
 		}
+		return "";
 
 	}
 
@@ -232,14 +233,14 @@ public class ClientManagedBean implements Serializable {
 		if (verif != 0) {
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe a été modifié"));
-			return "clientAccueil";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produit"));
-			return "clientUpdateMdp";
+
 		}
+		return "";
 
 	}
-	
+
 	/**
 	 * Méthode qui permet au client de se connecter à n'importe quel moment dans
 	 * le site pour récupérer les informations de son compte
@@ -252,7 +253,7 @@ public class ClientManagedBean implements Serializable {
 		// client dans la session
 		if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession") != null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous êtes déjà connecté"));
-			return "accueil";
+
 		} else {
 			// si le client n'est pas connecter, on appelle la méthode pour
 			// vérifier le mail et le mdp
@@ -264,24 +265,25 @@ public class ClientManagedBean implements Serializable {
 			case 0:
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("Il n'y a pas de compte client associé à cette adresse email"));
-				return "loginClient";
+				return "";
 			// si le retour de la méthode = 1, la connexion a réussi et on
 			// ajoute le client dans la session
 			case 1:
 				this.client = (Client) clientService.getClientByIdNomMail(client).get(0);
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clSession", this.client);
+				return "";
 
-				return "accueil";
 			case 2:
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe est erroné"));
-				return "loginClient";
+
 			default:
-				return "accueil";
+				return "";
 
 			}
 		}
+		return "";
 	}
-	
+
 	public String seDeconnecter() {
 
 		// vérifié qu'un client est déjà connecté
@@ -293,19 +295,17 @@ public class ClientManagedBean implements Serializable {
 
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage("La déconnexion n'a pas fonctionné"));
-				return "clientLogout";
-
 			} else {
 
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous n'êtes plus connecté"));
-				return "clientAccueil";
+
 			}
 
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Vous n'êtes pas connecté à un compte client"));
-			return "clientLogin";
 		}
+		return "";
 
 	}
 }
