@@ -44,4 +44,16 @@ public class CategorieServiceImpl implements ICategorieService {
 		return null;
 	}
 
+	@Override
+	public int deleteCategorie(Categorie categorie) {
+		
+		return categorieDao.deleteCategorie(categorie);
+	}
+
+	@Override
+	public int updateCategorie(Categorie categorie) {
+		
+		return categorieDao.updateCategorie(categorie);
+	}
+
 }

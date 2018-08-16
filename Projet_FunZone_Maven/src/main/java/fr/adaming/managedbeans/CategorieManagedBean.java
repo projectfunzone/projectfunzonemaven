@@ -102,30 +102,56 @@ public class CategorieManagedBean implements Serializable {
 		return ((Comparable) value).compareTo(Integer.valueOf(filterText)) > 0;
 	}
 
-	
-	
-	//Méthode pour rechercher une catégorie par nom ou id
-	public String searchCategorieBy () {
-		Categorie catOut=categorieService.getCategorieByIdOrNom(this.categorie);
-		
+	// Méthode pour rechercher une catégorie par nom ou id
+	public String searchCategorieBy() {
+		Categorie catOut = categorieService.getCategorieByIdOrNom(this.categorie);
+
 		if (catOut != null) {
-			this.categorie=catOut;
+			this.categorie = catOut;
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Il n'y a pas de catégorie correspondante"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Il n'y a pas de catégorie correspondante"));
 		}
 		return "";
 	}
-	
-	
-	public String addCategorie () {
-		Categorie catOut=categorieService.addCategorie(this.categorie);
-		
-		if (catOut != null ) {
+
+	public String addCategorie() {
+		Categorie catOut = categorieService.addCategorie(this.categorie);
+
+		if (catOut != null) {
 			this.listeCategorie = categorieService.getAllCategorie();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout est effectif"));
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Un problème s'est produit lors de la création"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Un problème s'est produit lors de la création"));
 		}
 		return "";
 	}
+
+	public String deleteCategorie() {
+		int verif = categorieService.deleteCategorie(this.categorie);
+
+		if (verif != 0) {
+			this.listeCategorie = categorieService.getAllCategorie();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La suppression est effective"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Un problème s'est produit lors de la suppresion"));
+		}
+		return "";
+	}
+
+	public String updateCategorie() {
+		int verif = categorieService.updateCategorie(this.categorie);
+		
+		if (verif != 0) {
+			this.listeCategorie = categorieService.getAllCategorie();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La modification est effective"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Un problème s'est produit lors de la modification"));
+		}
+		return "";
+	}
+
 }

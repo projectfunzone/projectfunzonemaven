@@ -113,7 +113,7 @@ public class ClientDaoImpl implements IClientDao {
 		// recuperer la session
 		Session s = sf.getCurrentSession();
 
-		String req = "UPDATE Client cl SET cl.nomClient=:pNom, cl.adresse=:pAdresse, cl.email=:pEmail, cl.tel=:pTel, WHERE cl.idClient=:pId";
+		String req = "UPDATE Client cl SET cl.nomClient=:pNom, cl.adresse=:pAdresse, cl.email=:pEmail, cl.tel=:pTel WHERE cl.idClient=:pId";
 
 		Query query = s.createQuery(req);
 

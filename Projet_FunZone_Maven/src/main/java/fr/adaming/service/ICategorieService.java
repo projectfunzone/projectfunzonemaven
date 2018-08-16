@@ -11,4 +11,8 @@ public interface ICategorieService {
 	public Categorie getCategorieByIdOrNom (Categorie categorie);
 	
 	public Categorie addCategorie (Categorie categorie);
+	
+	public int deleteCategorie (Categorie categorie);
+	
+	public int updateCategorie (Categorie categorie);
 }

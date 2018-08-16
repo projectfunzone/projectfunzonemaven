@@ -6,25 +6,36 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Ajouter une catégorie</title>
+	<title>Modifier une catégorie</title>
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 	<ui:insert>
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
+	<h1>Modifier une catégorie</h1>
 
 	<h:form>
 		<h:panelGrid columns="2">
+	Id: <p:inputText value="#{catMB.categorie.idCategorie}" />
+
+		</h:panelGrid>
+		<p:commandButton value="Rechercher" action="#{catMB.searchCategorieBy}"
+			update="@all" />
+
+
+
+
+		<h:panelGrid columns="2">
 		Nom de la catégorie*: <p:inputText
-				value="#{catMB.categorie.nomCategorie}" label="Nom" required="true" />
+				value="#{catMB.categorie.nomCategorie}" label="Nom" />
 
 		Description : <p:inputText value="#{catMB.categorie.description}" />
 		Photo : <p:fileUpload value="#{catMB.categorie.file}" mode="simple"
 				skinSimple="true" />
-			<p:commandButton value="ajouter" action="#{catMB.addCategorie}" update="@all"/>
+			<p:commandButton value="Modifier" action="#{catMB.updateCategorie}" update="@all"/>
 		</h:panelGrid>
 	</h:form>
-
 	<h1 style="color: red; text-align: center">
 		<h:messages />
 	</h1>
