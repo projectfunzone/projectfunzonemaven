@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Rechercher un produit</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<ui:insert>
+		<ui:include src="/templates/adminHeader.xhtml" />
+	</ui:insert>
+
+	<h1>Rechercher un produit</h1>
+
+	<h:form>
+		<h:panelGrid columns="2">
+		Par id: <p:inputText value="#{prMB.produit.idProduit}" />
+
+		</h:panelGrid>
+		<p:commandButton value="Rechercher" action="#{prMB.searchProduitById}"
+			update="@all" />
+<h:panelGrid columns="2">
+		Id du produit : <h:outputText value="#{prMB.produit.idProduit}" />
+		Designation : <h:outputText value="#{prMB.produit.designation}" />
+		Description : <h:outputText value="#{prMB.produit.description}" />
+		Prix : <h:outputText value="#{prMB.produit.prix}">
+			<f:convertNumber currencySymbol="€" type="currency" />
+		</h:outputText>
+		Quantité restante : <h:outputText value="#{prMB.produit.quantite}">
+			<f:convertNumber currencySymbol="" type="currency" />
+		</h:outputText>
+		Photo : <h:graphicImage value="#{prMB.produit.image}"
+			style="width:100px; height:100px" />
+		Catégorie : <h:outputText value="#{prMB.produit.categorie.nomCategorie}" />
+</h:panelGrid>
+	</h:form>
+
+	<h1 style="color: red; text-align: center">
+		<h:messages />
+	</h1>
+
+</h:body>
+</html>
