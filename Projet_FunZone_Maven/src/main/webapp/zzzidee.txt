@@ -1,0 +1,14 @@
+Idee marketing :
+mannequin/mascote lapin rose
+armure ironman
+
+
+
+idee metier:
+- gestions des stocks
+- création d'une vraie facture
+- liste déroulante à la place de la saisie des ID
+- galerie produits à partir de la liste des produits
+- liste des produits/categorie cote back office
+- prix total sur le panier
+- possibilité d'ajouter/soustraire les produits sur la listeProduit et dans le panier
