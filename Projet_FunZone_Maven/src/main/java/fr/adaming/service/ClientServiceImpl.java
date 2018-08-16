@@ -21,42 +21,42 @@ import fr.adaming.model.Client;
 public class ClientServiceImpl implements IClientService {
 
 	@Autowired // injection depandance du collaborateur
-	private IClientDao clDao;
+	private IClientDao clientDao;
 
 	@Override
 	public List<Client> getAllClients() {
-		return clDao.getAllClients();
+		return clientDao.getAllClients();
 	}
 
 	@Override
 	public Client getClientById(Client cl) {
-		return clDao.getClientById(cl);
+		return clientDao.getClientById(cl);
 	}
 
 	@Override
 	public List<Client> getClientByIdNomMail(Client cl) {
 
-		return clDao.getClientByIdNomMail(cl);
+		return clientDao.getClientByIdNomMail(cl);
 	}
 
 	@Override
 	public Client addClient(Client cl) {
-		return clDao.addClient(cl);
+		return clientDao.addClient(cl);
 	}
 
 	@Override
 	public int deleteClient(Client cl) {
-		return clDao.deleteClient(cl);
+		return clientDao.deleteClient(cl);
 	}
 
 	@Override
 	public int updateClient(Client cl) {
-		return clDao.updateClient(cl);
+		return clientDao.updateClient(cl);
 	}
 
 	@Override
 	public int updateClientMdp(Client cl) {
-		return clDao.updateClientMdp(cl);
+		return clientDao.updateClientMdp(cl);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class ClientServiceImpl implements IClientService {
 		
 		// on récupère une liste avec normalement 1 client qui correspond au
 		// mail unique
-		List<Client> listeRecupMail = clDao.getClientByIdNomMail(cl);
+		List<Client> listeRecupMail = clientDao.getClientByIdNomMail(cl);
 		
 		// on verifie qu'il n'y a qu'un client avec cet adresse mail, car sinon,
 		// cela veut dire qu'il y a 2 comptes clients avec la même adresse mail
