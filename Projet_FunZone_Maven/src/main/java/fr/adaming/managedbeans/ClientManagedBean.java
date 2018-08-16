@@ -11,7 +11,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import fr.adaming.model.Admin;
 import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
 
