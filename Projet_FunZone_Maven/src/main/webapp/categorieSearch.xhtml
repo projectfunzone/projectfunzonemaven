@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Rechercher une catégorie</title>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+<h:body>
+
+<h1>Rechercher une catégorie</h1>
+
+<h:form>
+	<h:panelGrid columns="2">
+		Par id: <p:inputText value="#{catMB.categorie.idCategorie}"/>
+		ou par nom: <p:inputText value="#{catMB.categorie.nomCategorie}"/>
+		
+		
+	</h:panelGrid>
+	<p:commandButton value="Rechercher" action="#{catMB.searchCategorieBy}" update="@all"/>
+	<h:panelGrid columns="2">
+	Id: <h:outputText value="#{catMB.categorie.idCategorie}"/>
+	Nom: <h:outputText value="#{catMB.categorie.nomCategorie}"/>
+	Description: <h:outputText value="#{catMB.categorie.description}"/>
+	<h:outputText value="#{catMB.categorie.image}" />
+	</h:panelGrid>
+	
+
+</h:form>
+	<h1 style="color: red; text-align: center">
+		<h:messages />
+		</h1>
+</h:body>
+</html>
