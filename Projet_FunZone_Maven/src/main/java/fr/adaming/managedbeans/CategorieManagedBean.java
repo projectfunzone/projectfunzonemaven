@@ -115,4 +115,17 @@ public class CategorieManagedBean implements Serializable {
 		}
 		return "";
 	}
+	
+	
+	public String addCategorie () {
+		Categorie catOut=categorieService.addCategorie(this.categorie);
+		
+		if (catOut != null ) {
+			this.listeCategorie = categorieService.getAllCategorie();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("L'ajout est effectif"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Un problème s'est produit lors de la création"));
+		}
+		return "";
+	}
 }

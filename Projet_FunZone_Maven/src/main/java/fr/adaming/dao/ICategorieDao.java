@@ -9,5 +9,7 @@ public interface ICategorieDao {
 	public List<Categorie> getAllCategorie () ;
 	
 	public Categorie getCategorieByIdOrNom (Categorie categorie);
+	
+	public Categorie addCategorie (Categorie categorie);
 
 }

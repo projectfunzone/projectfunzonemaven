@@ -51,4 +51,15 @@ public class CategorieDaoImpl implements ICategorieDao {
 	}
 
 
+	@Override
+	public Categorie addCategorie(Categorie categorie) {
+
+		Session s=sf.getCurrentSession();
+		
+		s.save(categorie);
+		
+		return categorie;
+	}
+
+
 }
