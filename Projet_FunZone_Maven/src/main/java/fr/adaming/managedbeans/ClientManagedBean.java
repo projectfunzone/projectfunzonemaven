@@ -271,7 +271,7 @@ public class ClientManagedBean implements Serializable {
 			case 1:
 				this.client = (Client) clientService.getClientByIdNomMail(client).get(0);
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clSession", this.client);
-				return "";
+				return "clientAccueil";
 
 			case 2:
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le mot de passe est erroné"));
@@ -298,7 +298,7 @@ public class ClientManagedBean implements Serializable {
 			} else {
 
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Vous n'êtes plus connecté"));
-
+				return "clientAccueil";
 			}
 
 		} else {

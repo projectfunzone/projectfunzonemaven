@@ -9,7 +9,6 @@
 	<title></title>
 </h:head>
 <h:body>
-	<!-- menu barre supérieure -->
 	<h:form>
 		<p:growl id="messages" />
 
@@ -32,12 +31,22 @@
 				icon="ui-icon-cart" />
 
 			<f:facet name="options">
-				<p:inputText style="margin-right:10px" placeholder="Search" />
+				<p:inputText  placeholder="Search" />
 
-				<p:button value="Se connecter" outcome="clientLogin"
-					icon="ui-icon-person" />
+
+
 			</f:facet>
+			<p:submenu  label="Être adhérent...">
 
+				<p:menuitem value="Espace personnel" url="clientUpdateClient.xhtml"
+					icon="ui-icon-person" />
+				<p:menuitem value="Modifier son mdp"
+					url="clientUpdateClientMdp.xhtml" icon="ui-icon-person" />
+				<p:menuitem value="Avantage adhérent" url="clientAvantages.xhtml"
+					icon="ui-icon-gear" />
+				<p:menuitem value="Logout" url="clientLogout.xhtml"
+					icon="ui-icon-extlink" />
+			</p:submenu>
 		</p:menubar>
 	</h:form>
 
@@ -52,5 +61,6 @@
 				icon="ui-icon-arrowreturnthick-1-e" />
 		</p:menu>
 	</h:form>
+
 </h:body>
 </html>
