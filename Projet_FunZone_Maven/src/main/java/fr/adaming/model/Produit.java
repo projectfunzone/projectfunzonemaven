@@ -3,6 +3,7 @@ package fr.adaming.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,9 +39,6 @@ public class Produit implements Serializable{
 	
 	private boolean venteFlash=false;
 	
-	@Transient
-	private boolean selectionne;
-	
 	@Lob
 	@Column(name="PROD_PIC")
 	private byte[] photo;
@@ -52,7 +50,7 @@ public class Produit implements Serializable{
 	 * Transformation de l'association UML en JAVA entre Produit et Categorie avec propagation
 	 * des opérations sur les Entity d'association
 	 */
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="categorie_id", referencedColumnName="id_categorie") //clef etrangere en SQL
 	private Categorie categorie;
 	
@@ -75,14 +73,12 @@ public class Produit implements Serializable{
 	 * @param selectionne
 	 * @param photo
 	 */
-	public Produit(String designation, String description, double prix, int quantite, boolean selectionne,
-			byte[] photo) {
+	public Produit(String designation, String description, double prix, int quantite,byte[] photo) {
 		super();
 		this.designation = designation;
 		this.description = description;
 		this.prix = prix;
 		this.quantite = quantite;
-		this.selectionne = selectionne;
 		this.photo = photo;
 	}
 
@@ -95,15 +91,13 @@ public class Produit implements Serializable{
 	 * @param selectionne
 	 * @param photo
 	 */
-	public Produit(Long idProduit, String designation, String description, double prix, int quantite,
-			boolean selectionne, byte[] photo) {
+	public Produit(Long idProduit, String designation, String description, double prix, int quantite, byte[] photo) {
 		super();
 		this.idProduit = idProduit;
 		this.designation = designation;
 		this.description = description;
 		this.prix = prix;
 		this.quantite = quantite;
-		this.selectionne = selectionne;
 		this.photo = photo;
 	}
 
@@ -181,20 +175,6 @@ public class Produit implements Serializable{
 	}
 
 	/**
-	 * @return the selectionne
-	 */
-	public boolean isSelectionne() {
-		return selectionne;
-	}
-
-	/**
-	 * @param selectionne the selectionne to set
-	 */
-	public void setSelectionne(boolean selectionne) {
-		this.selectionne = selectionne;
-	}
-
-	/**
 	 * @return the photo
 	 */
 	public byte[] getPhoto() {
@@ -257,7 +237,7 @@ public class Produit implements Serializable{
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
-				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo="
+				+ ", prix=" + prix + ", quantite=" + quantite + ", photo="
 				+ Arrays.toString(photo) + "]";
 	}
 

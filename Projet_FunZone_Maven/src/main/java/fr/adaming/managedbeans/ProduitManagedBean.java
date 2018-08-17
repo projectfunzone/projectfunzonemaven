@@ -247,12 +247,14 @@ public class ProduitManagedBean {
 			// de
 			// "superhéros" et si oui on ajoute le produit créé dans la liste
 			// des débutants aka "superhéros"
-			if (pAjout.getDescription().contentEquals("superhéros")) {
+			/*if (pAjout.getDescription().contentEquals("superhéros")) {
 				listeProduitsDebutant.add(pAjout);
+				System.out.println(listeProduitsDebutant);
 			}
 			if (pAjout.isVenteFlash()) {
 				listeProduitsFlash.add(pAjout);
-			}
+				System.out.println(listeProduitsFlash);
+			}*/
 
 		} else {
 

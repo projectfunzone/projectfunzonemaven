@@ -1,4 +1,4 @@
-Idee affichage :
+AFFICHAGE:
 mannequin/mascote lapin rose
 armure ironman
 tableau parallele
@@ -7,7 +7,7 @@ base de donnée fournie
 ration de survie
 
 
-idee metier:
+METIER:
 
 coté client
 - Commande / Panier
@@ -25,8 +25,11 @@ coté client
 - galerie produits à partir de la liste des produits
 
 côté admin
-- clic Categorie : envoyer sur la liste des produits associés
-- clic Produit : envoyer sur modifier produit
+- Categorie : 
+	- cli : envoyer sur la liste des produits associés
+- Produit : 
+	- clic :envoyer sur modifier produit
+	- modifier la categorie
 - gestions des stocks (creer commande)
 - classe mail à faire
 - validator pour mdp, adresse mail, adresse
@@ -34,5 +37,9 @@ côté admin
 - Liste Produits/Categorie :
 	- liste déroulante à la place de la saisie des ID
 	- modifier/supprimer sans passer par une saisie
-- header différent en fonction de la connexion 
-	- managedBean et #{}
+- header différent à configurer
+	
+- traduction du site ?
+- footer : 
+	- contact
+	- copyright
