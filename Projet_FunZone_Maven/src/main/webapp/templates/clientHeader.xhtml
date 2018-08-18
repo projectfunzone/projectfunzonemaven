@@ -1,56 +1,35 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title></title>
-</h:head>
-<h:body>
-	<!-- menu barre supérieure -->
-	<h:form>
-		<p:growl id="messages" />
 
-		<p:menubar>
-			<p:menuitem value="Vente Flash" url="venteFlash.xhtml"
-				icon="ui-icon-tag" />
-			<p:menuitem value="Le kit de départ" url="kit.xhtml"
-				icon="ui-icon-eject" />
+<!-- menu barre supérieure -->
+<h:form>
+	<p:growl id="messages" />
 
-			<p:submenu label="Tout apprendre sur..." icon="ui-icon-plus">
-				<p:menuitem value="le paintball" url="paintball.xhtml"
-					icon="ui-icon-circle-triangle-e" />
-				<p:menuitem value="le laser game" url="lasergame.xhtml"
-					icon="ui-icon-circle-triangle-e" />
-			</p:submenu>
+	<p:menubar>
+		<p:menuitem value="Vente Flash" url="venteFlash.xhtml"
+			icon="ui-icon-tag" />
+		<p:menuitem value="Le kit de départ" url="kit.xhtml"
+			icon="ui-icon-eject" />
 
+		<p:submenu label="Tout apprendre sur..." icon="ui-icon-plus">
+			<p:menuitem value="le paintball" url="paintball.xhtml"
+				icon="ui-icon-circle-triangle-e" />
+			<p:menuitem value="le laser game" url="lasergame.xhtml"
+				icon="ui-icon-circle-triangle-e" />
+		</p:submenu>
 
+		<p:menuitem value="Mon panier" url="panierClient.xhtml"
+			icon="ui-icon-cart" />
 
-			<p:menuitem value="Mon panier" url="panierClient.xhtml"
-				icon="ui-icon-cart" />
+		<f:facet name="options">
+			<p:inputText style="margin-right:10px" placeholder="Search" />
 
-			<f:facet name="options">
-				<p:inputText style="margin-right:10px" placeholder="Search" />
-
-				<p:button value="Se connecter" outcome="clientLogin"
-					icon="ui-icon-person" />
-			</f:facet>
-
-		</p:menubar>
-	</h:form>
-
-	<h:form>
-		<p:growl id="messages" showDetail="false" />
-
-		<p:menu>
-			<p:menuitem value="Accueil" url="accueil.xhtml" icon="ui-icon-home" />
-			<p:menuitem value="Tous nos produits" url="listeProduit.xhtml"
-				icon="ui-icon-arrowreturnthick-1-e" />
-			<p:menuitem value="Toutes les categories" url="listeCategorie.xhtml"
-				icon="ui-icon-arrowreturnthick-1-e" />
-		</p:menu>
-	</h:form>
-</h:body>
-</html>
+			<p:button value="Se connecter" outcome="clientLogin"
+				icon="ui-icon-person" />
+		</f:facet>
+	</p:menubar>
+</h:form>
+</h:html>

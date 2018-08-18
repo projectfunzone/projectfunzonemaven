@@ -1,5 +1,4 @@
 AFFICHAGE:
-mannequin/mascote lapin rose
 armure ironman
 tableau parallele
 interface backk office distinct de front office

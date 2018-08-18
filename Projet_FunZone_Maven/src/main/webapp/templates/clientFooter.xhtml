@@ -1,0 +1,23 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- menu barre supérieure -->
+<h:form>
+	<p:growl id="messages" />
+
+	<p:menubar>
+		<p:menuitem value="Moyen de paiement" url="paiement.xhtml"
+			icon="ui-icon-calculator" />
+		<p:menuitem value="Livraison" url="livraison.xhtml"
+			icon="ui-icon-cart" />
+
+		<p:menuitem value="Nos garanties" url="garanties.xhtml"
+			icon="ui-icon-heart" />
+
+		<p:menuitem value="S.A.V" url="sav.xhtml" icon="ui-icon-transferthick-e-w" />
+	</p:menubar>
+</h:form>
+</h:html>

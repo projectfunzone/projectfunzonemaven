@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Kit de départ</title>
+	<h:outputStylesheet library="css" name="style.css" />
+
+</h:head>
+<body>
+	<ui:insert>
+		<ui:include src="#{headerMB.header}" />
+	</ui:insert>
+
+	<h1>Qu'acheter pour bien commencer ?</h1>
+	<h:form>
+		<p:dataTable var="kit" value="#{prMB.listeProduitDebutant}">
+			<p:column headerText="Id Produit">
+				<h:outputText value="#{kit.idProduit}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+				<h:outputText value="#{kit.designation}" />
+			</p:column>
+
+			<p:column headerText="Description">
+				<h:outputText value="#{kit.description}" />
+			</p:column>
+
+			<p:column headerText="Image">
+				<h:graphicImage value="#{kit.image}"
+					style="width:100px; height:100px" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+</body>
+</html>

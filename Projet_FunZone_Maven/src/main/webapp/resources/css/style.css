@@ -1,10 +1,47 @@
 @CHARSET "ISO-8859-1";
 
-body{
-	background-color:black;
-	color : white;
+.middlePanelClass   .ui-widget-content {
+	font-size: 12px;
+	background-color: #00698B;
+	font-family: 'Lucida Sans Unicode', Verdana, Arial, Helvetica,
+		sans-serif;
 }
 
-h1,a{
-	color : #2FFF2F;
+.footerPanelClass {
+	font-size: 8px;
+	text-align:center;
+	background-color: #00698B;
+	font-family: 'Lucida Sans Unicode', Verdana, Arial, Helvetica,
+		sans-serif;
+}
+
+.titleFieldCss {
+	font-size: 30px;
+	color: #FEF1EC;
+	font-family: 'Lucida Sans Unicode', Verdana, Arial, Helvetica,
+		sans-serif;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+.myProfilCss {
+	font-size: 12px;
+	color: #FEF1EC;
+	font-family: 'Lucida Sans Unicode', Verdana, Arial, Helvetica,
+		sans-serif;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+.panelGridCenter {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.panelGridRight {
+	margin: 0 auto;
+	font-size: 12px;
+	color: #FEF1EC;
+	text-align: center;
+	margin-left: 70px;
 }

@@ -1,0 +1,19 @@
+<h:html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition>
+		<h:form>
+			<p:growl id="messages" showDetail="false" />
+
+			<p:menu>
+				<p:menuitem value="Accueil" url="accueil.xhtml" icon="ui-icon-home" />
+				<p:menuitem value="Tous nos produits" url="produitListe.xhtml"
+					icon="ui-icon-arrowreturnthick-1-e" />
+				<p:menuitem value="Toutes les categories" url="categorieListe.xhtml"
+					icon="ui-icon-arrowreturnthick-1-e" />
+			</p:menu>
+		</h:form>
+	</ui:composition>
+</h:html>
