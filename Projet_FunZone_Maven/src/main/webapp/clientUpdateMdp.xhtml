@@ -1,48 +1,41 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title></title>
-	<h:outputStylesheet library="css" name="style.css"  />
-</h:head>
-<h:body>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
+	<h:head>
+		<title>Modifier son mdp client</title>
+		<h:outputStylesheet library="css" name="common-style.css" />
+	</h:head>
+	<ui:define name="contentTab">
+		<h1>Modifier le mot de passe d'un client</h1>
 
-	<ui:insert>
-		<ui:include src="#{headerMB.header}" />
-	</ui:insert>
-
-	<h1>Modifier le mot de passe d'un client</h1>
-
-	<h:form>
-		<h:panelGrid columns="2">
+		<h:form>
+			<h:panelGrid columns="2">
 		Id du client*: <p:inputText value="#{clMB.client.idClient}" label="Id"
-				required="true" />
-		</h:panelGrid>
-		<p:commandButton value="Rechercher" action="#{clMB.getClientById}"
-			update="@all" />
+					required="true" />
+			</h:panelGrid>
+			<p:commandButton value="Rechercher" action="#{clMB.getClientById}"
+				update="@all" />
 
-		<h:panelGrid columns="2">
+			<h:panelGrid columns="2">
 		Nom: <h:outputText value="#{clMB.client.nomClient}" />
 		Adresse: <h:outputText value="#{clMB.client.adresse}" />
 		Téléphone: <h:outputText value="#{clMB.client.tel}" />
 		Email: <h:outputText value="#{clMB.client.email}" />
 		
-		Mot de passe*: <p:password id="pwd1" match="pwd2" label="Mot de passe"/>
+		Mot de passe*: <p:password id="pwd1" match="pwd2" label="Mot de passe" />
 		Confirmer le mot de passe*:<p:password id="pwd2"
-				value="#{clMB.client.mdpClient}" label="Confirmer le mot de passe"/>
-		</h:panelGrid>
+					value="#{clMB.client.mdpClient}" label="Confirmer le mot de passe" />
+			</h:panelGrid>
 
-		<p:commandButton value="Modifier" action="#{clMB.updateClientMdp}"
-			update="@all" />
-	</h:form>
+			<p:commandButton value="Modifier" action="#{clMB.updateClientMdp}"
+				update="@all" />
+		</h:form>
 
-	<h1 style="color: red; text-align: center">
-		<h:messages />
-	</h1>
-
-</h:body>
-</html>
+		<h1 style="color: red; text-align: center">
+			<h:messages />
+		</h1>
+	</ui:define>
+</ui:composition>
