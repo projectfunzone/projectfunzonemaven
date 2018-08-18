@@ -33,8 +33,6 @@ public class PanierManagedBean implements Serializable {
 		this.panierService = panierService;
 	}
 
-	
-	
 	@ManagedProperty(value = "#{prService}") // injection dépendance
 	private IProduitService produitService;
 
@@ -43,8 +41,6 @@ public class PanierManagedBean implements Serializable {
 		this.produitService = produitService;
 	}
 
-	
-	
 	@ManagedProperty(value = "#{clService}") // injection dépendance
 	private IClientService clientService;
 
@@ -53,17 +49,13 @@ public class PanierManagedBean implements Serializable {
 		this.clientService = clientService;
 	}
 
-	
 	@ManagedProperty(value = "#{cmdService}") // injection dépendance
 	private ICommandeService commandeService;
-	
+
 	// Setter pour l'injection dépendance
 	public void setCommandeService(ICommandeService commandeService) {
 		this.commandeService = commandeService;
 	}
-
-	
-
 
 	/**
 	 * Les attributs
@@ -74,10 +66,6 @@ public class PanierManagedBean implements Serializable {
 	private LigneCommande ligneCommande;
 
 	private List<LigneCommande> listePanier = new ArrayList<>();
-
-	/**
-	 * Transformation de l'association UML en JAVA
-	 */
 
 	/**
 	 * Constructeur vide
@@ -143,8 +131,6 @@ public class PanierManagedBean implements Serializable {
 		this.produit = pr;
 	}
 
-
-
 	public int getQuantite() {
 		return quantite;
 	}
@@ -195,37 +181,101 @@ public class PanierManagedBean implements Serializable {
 		// on récupere le produit de la base de donnée.
 		Produit prOut = produitService.searchProduitById(this.produit);
 
-		// on créer alors la ligne de commande associée
-		LigneCommande lcOut = panierService.ajoutProdPanier(prOut, quantite);
+		// on vérifie que le produit existe
+		if (prOut != null) {
 
-		// on vérifie que lc ne soit pas vide
-		if (lcOut != null) {
+			// création d'un indice en int dont la valeur sera modifié à 1 si le
+			// produit était déjà présent dans le panier, sinon, il reste à zéro
+			// pour faire la création d'une ligne de commande
+			int verifAjoutPanier = 0;
 
-			System.out.println(lcOut);
+			// on verifie que le panier a déjà des entrées, sinon, on ajoute
+			// directement une ligne de commande dedans
+			if (this.listePanier.size() > 0) {
 
-			System.out.println(this.listePanier);
-			// on ajoute à la liste de ligne de commande cette nouvelle nouvelle
-			// ligne de commande
-			this.listePanier.add(lcOut);
+				for (LigneCommande lc : listePanier) {
+					// Pour chaque ligne de commande, on vérifie si le produit
+					// n'est pas déjà présent dans le panier, en vérifiant si
+					// l'id du produit correspond à l'id du produit dans la
+					// ligne de commande
+					if (lc.getProduit().getIdProduit() == prOut.getIdProduit()) {
 
-			// on ajoute au panier la liste de commande
-			panier.setListeCommande(this.listePanier);
+						// si l'id est identique, on vérifie que la quantité
+						// déjà
+						// commandé + la quantité rajouté sont inférieur au
+						// stock
+						// disponible de produit
 
-			// on ajoute à la session PanierClient la nouveau panier
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
-			
-			return "panierAfficher";
+						if ((this.quantite + lc.getQuantite()) <= prOut.getQuantite()) {
+
+							lc.setQuantite(lc.getQuantite() + this.quantite);
+							lc.setPrix(lc.getPrix()+(this.quantite*prOut.getPrix()));
+
+							// on passe l'indice à 1 vu que le produit a été
+							// ajouté dans une ligne déjà existante
+							verifAjoutPanier = 1;
+
+							// on ajoute au panier la liste de commande
+							panier.setListeCommande(this.listePanier);
+							
+							return "panierAfficher";
+
+						} else {
+
+							FacesContext.getCurrentInstance().addMessage(null,
+									new FacesMessage("La quantité en stock n'est pas suffisante"));
+							return "";
+						}
+
+					}
+
+				}
+
+			}
+
+			// si l'indice verifAjoutPanier est tjs à 0, c'est que le produit
+			// n'existait pas dans le panié et qu'il n'a pas été ajouté
+			if (verifAjoutPanier == 0) {
+
+				//Création d'une ligne de commande
+				LigneCommande lcOut = panierService.ajoutProdPanier(prOut, this.quantite);
+
+				//vérification que la ligne de commande a été créée
+				if (lcOut != null) {
+
+					// on ajoute à la liste de ligne de commande cette nouvelle
+					// nouvelle ligne de commande
+					this.listePanier.add(lcOut);
+
+					// on ajoute au panier la liste de commande
+					panier.setListeCommande(this.listePanier);
+
+					// on ajoute à la session PanierClient la nouveau panier
+					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
+
+					return "panierAfficher";
+
+				} else {
+
+					// Message d'erreur suite à la tentative d'ajout de produit
+					// au
+					// panier
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Le produit n'est pas en quantité suffisante"));
+				}
+
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Une erreur s'est produite"));
+			}
 
 		} else {
 
-			// Message d'erreur suite à la tentative d'ajout de produit au
-			// panier
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit n'est pas en quantité suffisante"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Le produit n'existe pas dans la base de donnée"));
 		}
 		// on renvoie au panier
 		return "";
 
 	}
 
-	
 }

@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.faces.context.FacesContext;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -37,60 +38,42 @@ import fr.adaming.model.Produit;
 @Service("panService")
 public class PanierServiceImpl implements IPanierService {
 
-	@Autowired
+	@Autowired //injection dépendance d'un collaborateur
 	ICommandeService commandeService;
 
-	@Autowired
-	IClientService clientService;
-
-	@Autowired
-	ILigneCommandeService lignecommandeService;
-
-	
-	/**
-	 * @return the commandeService
-	 */
-	public ICommandeService getCommandeService() {
-		return commandeService;
-	}
-
-	/**
-	 * @param commandeService the commandeService to set
-	 */
+	//Setter pour l'injection dépendance
 	public void setCommandeService(ICommandeService commandeService) {
 		this.commandeService = commandeService;
 	}
+	
+	@Autowired //injection dépendance d'un collaborateur
+	IClientService clientService;
 
-	/**
-	 * @return the clientService
-	 */
-	public IClientService getClientService() {
-		return clientService;
-	}
-
-	/**
-	 * @param clientService the clientService to set
-	 */
+	//Setter pour l'injection dépendance
 	public void setClientService(IClientService clientService) {
 		this.clientService = clientService;
 	}
+	
+	
+	@Autowired //injection dépendance d'un collaborateur
+	ILigneCommandeService lignecommandeService;
 
-	/**
-	 * @return the lignecommandeService
-	 */
-	public ILigneCommandeService getLignecommandeService() {
-		return lignecommandeService;
-	}
-
-	/**
-	 * @param lignecommandeService the lignecommandeService to set
-	 */
+	//Setter pour l'injection dépendance
 	public void setLignecommandeService(ILigneCommandeService lignecommandeService) {
 		this.lignecommandeService = lignecommandeService;
 	}
+	
+	@Autowired //injection dépendance d'un collaborateur
+	IProduitService produitService;
+	
+	//Setter pour l'injection dépendance
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
+	}
 
-	
-	
+
+
+
 	/**
 	 *  Le produit choisi par le client ainsi que sa quantité sont
 	 * en parametre. On crée une ligne de commande et on vérifié que la quantité
@@ -119,7 +102,8 @@ public class PanierServiceImpl implements IPanierService {
 		}
 
 	}
-	
+		
+		
 
 
 }
