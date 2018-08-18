@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.LigneCommande;
 
 /**
  * Interface CommandeService qui définir les méthodes Commande
@@ -49,5 +50,13 @@ public interface ICommandeService {
 	 */
 	public int deleteCommande(Commande cmd,Client cl);
 	
+	
+	
+	/**
+	 * Créer une commande à partir du panier.
+	 * @param client, ligne de commande
+	 * @return
+	 */
+	public int passerCommande(List<LigneCommande> listePanierCommande, Client cl);
 
 }

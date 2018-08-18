@@ -16,6 +16,7 @@ import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IClientService;
+import fr.adaming.service.ICommandeService;
 import fr.adaming.service.IPanierService;
 import fr.adaming.service.IProduitService;
 
@@ -24,14 +25,45 @@ import fr.adaming.service.IProduitService;
 @RequestScoped
 public class PanierManagedBean implements Serializable {
 
-	@ManagedProperty(value = "#{panService}")
+	@ManagedProperty(value = "#{panService}") // injection dépendance
 	private IPanierService panierService;
 
-	@ManagedProperty(value = "#{prService}")
+	// Setter pour l'injection dépendance
+	public void setPanierService(IPanierService panierService) {
+		this.panierService = panierService;
+	}
+
+	
+	
+	@ManagedProperty(value = "#{prService}") // injection dépendance
 	private IProduitService produitService;
 
-	@ManagedProperty(value = "#{clService}")
+	// Setter pour l'injection dépendance
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
+	}
+
+	
+	
+	@ManagedProperty(value = "#{clService}") // injection dépendance
 	private IClientService clientService;
+
+	// Setter pour l'injection dépendance
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
+
+	
+	@ManagedProperty(value = "#{cmdService}") // injection dépendance
+	private ICommandeService commandeService;
+	
+	// Setter pour l'injection dépendance
+	public void setCommandeService(ICommandeService commandeService) {
+		this.commandeService = commandeService;
+	}
+
+	
+
 
 	/**
 	 * Les attributs
@@ -111,19 +143,14 @@ public class PanierManagedBean implements Serializable {
 		this.produit = pr;
 	}
 
-	/**
-	 * @return the q
-	 */
-	public int getQ() {
+
+
+	public int getQuantite() {
 		return quantite;
 	}
 
-	/**
-	 * @param q
-	 *            the q to set
-	 */
-	public void setQuantite(int q) {
-		this.quantite = q;
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
 	}
 
 	/**
@@ -186,65 +213,19 @@ public class PanierManagedBean implements Serializable {
 
 			// on ajoute à la session PanierClient la nouveau panier
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
+			
+			return "panierAfficher";
 
 		} else {
 
 			// Message d'erreur suite à la tentative d'ajout de produit au
 			// panier
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout a échoué"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit n'est pas en quantité suffisante"));
 		}
 		// on renvoie au panier
 		return "";
 
 	}
 
-	/**
-	 * Méthode qui permet de créer la commande avec les produits et les
-	 * quantités associé
-	 * 
-	 * @return
-	 */
-	public String créerCommande() {
-
-		// Récupérer le client dans la session
-		Client clOut = (Client) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession");
-
-		if (clOut != null) {
-
-			// créer une commande avec le panier qui est dans la session
-			int verif = panierService.créerCommande(this.listePanier, clOut);
-
-			switch (verif) {
-			case 0:
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-						"Erreur type 1 : La création de la commande n'a pas fonctionné, merci de réessayer"));
-				return "";
-
-			case 1:
-
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La commande est créée"));
-
-				// vider le panier après avoir passé la commande
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", null);
-
-				this.listePanier = null;
-				return "";
-
-			case 2:
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-						"Erreur type 2 : Une erreur s'est produit lors de la création de la commande, merci de réessayer"));
-				return "";
-
-			default:
-				return "";
-			}
-
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Veuillez vous connecter pour passer commande"));
-		}
-
-		return "";
-	}
-
+	
 }

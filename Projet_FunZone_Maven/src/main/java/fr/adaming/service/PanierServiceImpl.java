@@ -89,53 +89,7 @@ public class PanierServiceImpl implements IPanierService {
 		this.lignecommandeService = lignecommandeService;
 	}
 
-	@Override
-	public int créerCommande(List<LigneCommande> listePanierCommande, Client cl) {
-
-		// instanciation d'une commande
-		Commande cmd = new Commande();
-
-		// créer cette commande
-		cmd = commandeService.addCommande(cmd, cl);
-
-		// vérification de la bonne création de la commande
-		if (cmd != null) {
-
-			// on parcours la liste des commandes du panier, et pour chaque
-			// ligne, elle créée une ligne de commande
-			for (LigneCommande lc : listePanierCommande) {
-
-				LigneCommande lcOut = lignecommandeService.addLigneCommande(lc, cmd);
-
-				if (lcOut == null) {
-					return 2;
-				}
-
-			}
-
-			// récupération du client en fonction de son id
-			Client clOut = clientService.getClientById(cl);
-
-			// Création de la facture : on commence par la date, puis l'objet du
-			// mail et le corps du mail
-			// Ensuite on édite le titre du pdf et du corps du pdf
-			Date dateFacture = new Date();
-			String objetMail = "Votre Facture Funzone du " + dateFacture;
-			String corpsMail = "Bonjour Monsieur/Madame " + cl.getNomClient() + ", ci-joint votre facture du "
-					+ dateFacture + ".";
-
-			String nomPDF = "Facture Funzone";
-			String corpsPDF = "Bonjour, ci-joint, ci-joint votre facture du " + dateFacture
-					+ ".\nVotre commande est composé de :\n";
-
-			// ajout de l'ensemble des elements dans un mail
-			this.email(clOut, objetMail, corpsMail, nomPDF, corpsPDF);
-
-			return 1;
-		}
-
-		return 0;
-	}
+	
 	
 	/**
 	 *  Le produit choisi par le client ainsi que sa quantité sont
@@ -147,16 +101,16 @@ public class PanierServiceImpl implements IPanierService {
 	 * @return En sortie on récupère lc.
 	 */
 	@Override
-	public LigneCommande ajoutProdPanier(Produit pr, int q) {
+	public LigneCommande ajoutProdPanier(Produit pr, int quantite) {
 
 		LigneCommande lc = new LigneCommande();
 		
 
-		if (q <= pr.getQuantite()) {
+		if (quantite <= pr.getQuantite()) {
 			
 			lc.setProduit(pr);
-			lc.setQuantite(q);
-			lc.setPrix(pr.getPrix() * q);
+			lc.setQuantite(quantite);
+			lc.setPrix(pr.getPrix() * quantite);
 			
 			return lc;
 		} else {
@@ -167,110 +121,5 @@ public class PanierServiceImpl implements IPanierService {
 	}
 	
 
-	/**
-	 * création de l'email : on définit l'adresse emetrice (+mdp) et on récupere les informations sur les serveurs
-	 * @param cl
-	 * @param objetMail
-	 * @param corpsMail
-	 * @param nomPDF
-	 * @param corpsPDF
-	 */
-	public void email(Client cl, String objetMail, String corpsMail, String nomPDF, String corpsPDF) {
-		final String username = "projectfunzone@gmail.com";
-		final String password = "12root34";
-
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-
-		// on récupère la session
-		Session session = Session.getInstance(props, new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
-
-		ByteArrayOutputStream outputStream = null;
-
-		//mise en forme des éléments de l'email
-		try {
-			// construct the text body part
-			MimeBodyPart textBodyPart = new MimeBodyPart();
-			textBodyPart.setText(corpsMail);
-
-			// now write the PDF content to the output stream
-			outputStream = new ByteArrayOutputStream();
-			writePdf(outputStream, corpsPDF);
-			byte[] bytes = outputStream.toByteArray();
-
-			// construct the pdf body part
-			DataSource dataSource = new ByteArrayDataSource(bytes, "application/pdf");
-			MimeBodyPart pdfBodyPart = new MimeBodyPart();
-			pdfBodyPart.setDataHandler(new DataHandler(dataSource));
-			pdfBodyPart.setFileName(nomPDF + ".pdf");
-
-			// construct the mime multi part
-			MimeMultipart mimeMultipart = new MimeMultipart();
-			mimeMultipart.addBodyPart(textBodyPart);
-			mimeMultipart.addBodyPart(pdfBodyPart);
-
-			// create the sender/recipient addresses
-			InternetAddress iaSender = new InternetAddress(username);
-			InternetAddress iaRecipient = new InternetAddress(cl.getEmail());
-
-			// construct the mime message
-			MimeMessage mimeMessage = new MimeMessage(session);
-			mimeMessage.setSender(iaSender);
-			mimeMessage.setSubject(objetMail);
-			mimeMessage.setRecipient(Message.RecipientType.TO, iaRecipient);
-			mimeMessage.setContent(mimeMultipart);
-
-			// send off the email
-			Transport.send(mimeMessage);
-
-			System.out.println("mail envoyé");
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			// clean off
-			if (null != outputStream) {
-				try {
-					outputStream.close();
-					outputStream = null;
-				} catch (Exception ex) {
-				}
-			}
-		}
-	}
-
-	/**
-	 * Writes the content of a PDF file (using iText API) to the
-	 * {@link OutputStream}.
-	 * 
-	 * @param outputStream
-	 *            {@link OutputStream}.
-	 * @throws Exception
-	 */
-	public void writePdf(OutputStream outputStream, String corpsPDF) throws Exception {
-		Document document = new Document();
-		PdfWriter.getInstance(document, outputStream);
-
-		document.open();
-
-		document.addTitle("Facture FUN ZONE");
-		document.addSubject("Votre facture FunZone");
-		document.addKeywords("Commande, Funzone");
-		document.addAuthor("FunZone");
-		document.addCreator("FunZone");
-
-		Paragraph paragraph = new Paragraph();
-		paragraph.add(new Chunk(corpsPDF));
-		document.add(paragraph);
-
-		document.close();
-	}
 
 }
