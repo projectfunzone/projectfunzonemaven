@@ -16,7 +16,6 @@ coté client
 		- recap commande avec liste de produits
 		- adresse
 		- ajouter le logo
-	- ajouter/soustraire les produits
 - Compte client
 - Vente flash/kit de depart a rendre fonctionnel
 
@@ -36,9 +35,5 @@ côté admin
 - Liste Produits/Categorie :
 	- liste déroulante à la place de la saisie des ID
 	- modifier/supprimer sans passer par une saisie
-- header différent à configurer
 	
 - traduction du site ?
-- footer : 
-	- contact
-	- copyright

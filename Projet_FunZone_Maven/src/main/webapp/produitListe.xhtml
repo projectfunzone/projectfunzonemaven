@@ -1,76 +1,69 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Liste de tous les produits</title>
-	
-	<h:outputStylesheet library="css" name="style.css"  />
-</h:head>
-<h:body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/template.xhtml">
+	<h:head>
+		<title>Les stocks</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
+		<h1>Liste des produits</h1>
 
-	<h1>Liste des produits</h1>
+		<h:form>
+			<p:dataTable var="pr" value="#{prMB.listeProduit}"
+				widgetVar="produitsTable"
+				emptyMessage="Pas de produits trouvés pour ces critères"
+				filteredValue="#{prMB.listeProduitFiltre}">
 
-	<h:form>
-		<p:dataTable var="pr" value="#{prMB.listeProduit}"
-			widgetVar="produitsTable"
-			emptyMessage="Pas de produits trouvés pour ces critères"
-			filteredValue="#{prMB.listeProduitFiltre}">
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Rechercher sur les champs :" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('produitsTable').filter()" style="width:150px"
+							placeholder="mot clef" />
+					</p:outputPanel>
+				</f:facet>
 
-			<f:facet name="header">
-				<p:outputPanel>
-					<h:outputText value="Rechercher sur les champs :" />
-					<p:inputText id="globalFilter"
-						onkeyup="PF('produitsTable').filter()" style="width:150px"
-						placeholder="mot clef" />
-				</p:outputPanel>
-			</f:facet>
+				<p:column filterBy="#{pr.idProduit}" headerText="ID"
+					filterMatchMode="contains">
+					<h:outputText value="#{pr.idProduit}" />
+				</p:column>
 
-			<p:column filterBy="#{pr.idProduit}" headerText="ID"
-				filterMatchMode="contains">
-				<h:outputText value="#{pr.idProduit}" />
-			</p:column>
+				<p:column headerText="Vente">
+					<p:commandLink value="Ajouter au panier" action="pan.xhtml" />
+				</p:column>
 
-			<p:column headerText="Vente">
-				<p:commandLink value="Ajouter au panier" action="pan.xhtml" />
-			</p:column>
+				<p:column filterBy="#{pr.designation}" headerText="Nom"
+					filterMatchMode="contains">
+					<h:outputText value="#{pr.designation}" />
+				</p:column>
 
-			<p:column filterBy="#{pr.designation}" headerText="Nom"
-				filterMatchMode="contains">
-				<h:outputText value="#{pr.designation}" />
-			</p:column>
+				<p:column filterBy="#{pr.description}" headerText="Description"
+					filterMatchMode="contains">
+					<h:outputText value="#{pr.description}" />
+				</p:column>
 
-			<p:column filterBy="#{pr.description}" headerText="Description"
-				filterMatchMode="contains">
-				<h:outputText value="#{pr.description}" />
-			</p:column>
+				<p:column filterBy="#{pr.prix}" headerText="Prix"
+					filterFunction="#{prMB.filterByPrice}">
+					<h:outputText value="#{pr.prix}">
+						<f:convertNumber currencySymbol="€" type="currency" />
+					</h:outputText>
+				</p:column>
 
-			<p:column filterBy="#{pr.prix}" headerText="Prix"
-				filterFunction="#{prMB.filterByPrice}">
-				<h:outputText value="#{pr.prix}">
-					<f:convertNumber currencySymbol="€" type="currency" />
-				</h:outputText>
-			</p:column>
+				<p:column filterBy="#{pr.quantite}" headerText="Quantite disponible"
+					filterFunction="#{pMB.filterByPrice}">
+					<h:outputText value="#{pr.quantite}">
+						<f:convertNumber currencySymbol="" type="currency" />
+					</h:outputText>
+				</p:column>
 
-			<p:column filterBy="#{pr.quantite}" headerText="Quantite disponible"
-				filterFunction="#{pMB.filterByPrice}">
-				<h:outputText value="#{pr.quantite}">
-					<f:convertNumber currencySymbol="" type="currency" />
-				</h:outputText>
-			</p:column>
-
-			<p:column headerText="Image">
-				<h:graphicImage value="#{pr.image}"
-					style="width:100px; height:100px" />
-			</p:column>
-		</p:dataTable>
-	</h:form>
-
-</h:body>
-</html>
+				<p:column headerText="Image">
+					<h:graphicImage value="#{pr.image}"
+						style="width:100px; height:100px" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
