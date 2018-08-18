@@ -1,6 +1,7 @@
 package fr.adaming.managedbeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,15 +14,14 @@ import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Panier;
 import fr.adaming.service.ICommandeService;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "cmdMB")
 @RequestScoped
 public class CommandeManagedBean implements Serializable {
-
-	@ManagedProperty(value = "#{cmdService}")
-	private ICommandeService commandeService;
 
 	private Commande commande;
 
@@ -30,6 +30,17 @@ public class CommandeManagedBean implements Serializable {
 	private List<Commande> listeAllCommandes;
 
 	private List<Commande> listeGetCommande;
+
+	private List<LigneCommande> listePanier = new ArrayList<>();
+
+	
+	
+	@ManagedProperty(value = "#{cmdService}")
+	private ICommandeService commandeService;
+
+	public void setCommandeService(ICommandeService commandeService) {
+		this.commandeService = commandeService;
+	}
 
 	/**
 	 * Constructeur vide
@@ -45,84 +56,70 @@ public class CommandeManagedBean implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		//permet de récupérer la liste des commandes
 		this.listeAllCommandes = commandeService.getAllCommandes();
 
+		//pour récupérer les informations du panier client, pour passer une commande
+		// récupère le panier dans la session
+		Panier panSession = (Panier) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.get("panierClient");
+
+		// on récupere la session du panier et on verifie qu'elle ne soit pas
+		// vide
+		if (panSession != null) {
+
+			// on recupere la liste de commande du panier et on verifie qu'elle
+			// ne soit pas vide
+			if (panSession.getListeCommande() != null) {
+
+				// on stocke la nouvelle liste dans la nouvelle
+				for (LigneCommande elem : panSession.getListeCommande()) {
+					this.listePanier.add(elem);
+
+				}
+			}
+		}
 	}
 
 	// Getters et setters
-	/**
-	 * @return the commandeService
-	 */
-	public ICommandeService getCommandeService() {
-		return commandeService;
-	}
-
-	/**
-	 * @param commandeService
-	 *            the commandeService to set
-	 */
-	public void setCommandeService(ICommandeService commandeService) {
-		this.commandeService = commandeService;
-	}
-
-	/**
-	 * @return the commande
-	 */
 	public Commande getCommande() {
 		return commande;
 	}
 
-	/**
-	 * @param commande
-	 *            the commande to set
-	 */
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
 
-	/**
-	 * @return the client
-	 */
 	public Client getClient() {
 		return client;
 	}
 
-	/**
-	 * @param client
-	 *            the client to set
-	 */
 	public void setClient(Client client) {
 		this.client = client;
 	}
 
-	/**
-	 * @return the listeAllCommandes
-	 */
 	public List<Commande> getListeAllCommandes() {
 		return listeAllCommandes;
 	}
 
-	/**
-	 * @param listeAllCommandes
-	 *            the listeAllCommandes to set
-	 */
 	public void setListeAllCommandes(List<Commande> listeAllCommandes) {
 		this.listeAllCommandes = listeAllCommandes;
 	}
 
-	/**
-	 * @return the listeGetCommande
-	 */
 	public List<Commande> getListeGetCommande() {
 		return listeGetCommande;
 	}
 
-	/**
-	 * @param listeGetCommande
-	 *            the listeGetCommande to set
-	 */
 	public void setListeGetCommande(List<Commande> listeGetCommande) {
 		this.listeGetCommande = listeGetCommande;
+	}
+
+	public List<LigneCommande> getListePanier() {
+		return listePanier;
+	}
+
+	public void setListePanier(List<LigneCommande> listePanier) {
+		this.listePanier = listePanier;
 	}
 
 	/**
@@ -145,10 +142,8 @@ public class CommandeManagedBean implements Serializable {
 
 	/**
 	 * Si connecté en temps que client : permet de rechercher la liste de ses
-	 * commandes 
-	 * Si connecté en temps qu'admin : permet de rechercher une
-	 * commande par son id 
-	 * Si pas connecté : demande de se connecter
+	 * commandes Si connecté en temps qu'admin : permet de rechercher une
+	 * commande par son id Si pas connecté : demande de se connecter
 	 * 
 	 * @return
 	 */
@@ -258,4 +253,62 @@ public class CommandeManagedBean implements Serializable {
 		return "";
 	}
 
+	/**
+	 * Méthode qui permet de créer la commande avec les produits et les
+	 * quantités associé. 
+	 * 
+	 * @return
+	 */
+	public String passerCommande() {
+
+		// Récupérer le client dans la session
+		Client clOut = (Client) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession");
+
+		if (clOut != null) {
+
+			// créer une commande avec le panier qui est dans la session
+			int verif = commandeService.passerCommande(this.listePanier, clOut);
+
+			switch (verif) {
+			case 0:
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+						"Erreur type 1 : La création de la commande n'a pas fonctionné, merci de réessayer"));
+				return "";
+
+			case 1:
+
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("La commande est créée"));
+
+				// vider le panier après avoir passé la commande
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", null);
+
+				this.listePanier = null;
+				return "";
+
+			case 2:
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+						"Erreur type 2 : Une erreur s'est produit lors de la création de la commande, merci de réessayer"));
+				return "";
+
+			case 3:
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+						"Erreur type 3 : une erreur s'est produite lors de la création de la commande, contactez un administrateur."));
+				return "";
+			default:
+				return "";
+			}
+
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Veuillez vous connecter pour passer commande"));
+		}
+
+		return "";
+	}
+
+	
+	
+	
+	
+	
 }

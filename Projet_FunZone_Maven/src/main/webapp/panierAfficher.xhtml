@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Afficher le panier</title>
+	<h:outputStylesheet library="css" name="style.css" />
+
+</h:head>
+<body>
+	<ui:insert>
+		<ui:include src="#{headerMB.header}" />
+	</ui:insert>
+
+	<h1>Commande en cours</h1>
+	<h:form>
+		<p:dataTable var="lc" value="#{panMB.listePanier}">
+
+			<!-- nom du produit ajouté au panier -->
+			<p:column headerText="Nom du produit">
+				<h:outputText value="#{lc.produit.designation}" />
+			</p:column>
+
+			<p:column headerText="Quantité">
+				<h:outputText value="#{lc.quantite}" />
+			</p:column>
+
+			<p:column headerText="Prix">
+				<h:outputText value="#{lc.prix}" />
+			</p:column>
+
+			<!-- photo du produit ajouté au panier -->
+			<p:column headerText="Image">
+				<h:graphicImage value="#{prMB.produit.image}"
+					style="width:100px; height:100px" />
+			</p:column>
+		</p:dataTable>
+
+	</h:form>
+	<h:form>
+		<p:commandButton value="Passer commande"
+			action="#{cmdMB.passerCommande}" update="@all" />
+	</h:form>
+
+	<h1 style="color: red; text-align: center">
+		<h:messages />
+	</h1>
+
+</body>
+</html>
