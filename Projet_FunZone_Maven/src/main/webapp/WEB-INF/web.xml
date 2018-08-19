@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-  <display-name>Projet_FunZone</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>Projet_FunZone</display-name>
 
-<!-- déclarer le listener -->
+	<!-- déclarer le listener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<!-- spécifier le chemin du fichier de configuration du context Spring IoC -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -37,4 +40,10 @@
 	<welcome-file-list>
 		<welcome-file>adminAccueil.xhtml</welcome-file>
 	</welcome-file-list>
+
+<!-- thème de primefaces -->
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>cruze</param-value>
+	</context-param>
 </web-app>

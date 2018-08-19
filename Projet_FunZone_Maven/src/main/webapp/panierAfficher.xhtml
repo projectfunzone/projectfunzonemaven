@@ -11,7 +11,7 @@
 	<ui:define name="contentTab">
 		<h1>Commande en cours</h1>
 		<h:form>
-			<p:dataTable var="lc" value="#{panMB.listePanier}">
+			<p:dataTable id="tableau" var="lc" value="#{panMB.listePanier}">
 
 				<!-- nom du produit ajouté au panier -->
 				<p:column headerText="Nom du produit">
@@ -19,18 +19,23 @@
 				</p:column>
 
 				<p:column headerText="Quantité">
-					<h:outputText value="#{lc.quantite}" />
+					<p:commandLink value="suppr" action="#{panMB.supprProdPanierDirect}" update="tableau">
+						<f:setPropertyActionListener value="#{lc}" target="#{panMB.ligneCommande}" />
+					</p:commandLink>
+
+
+		
+					<h:outputText id="qte" value="#{lc.quantite}" />
+					
+					<p:commandLink value="ajout" action="#{panMB.ajoutProdPanierDirect}" update="qte, prix">
+						<f:setPropertyActionListener value="#{lc}" target="#{panMB.ligneCommande}" />
+					</p:commandLink>
 				</p:column>
 
 				<p:column headerText="Prix">
-					<h:outputText value="#{lc.prix}" />
+					<h:outputText id="prix" value="#{lc.prix}" />
 				</p:column>
 
-				<!-- photo du produit ajouté au panier -->
-				<p:column headerText="Image">
-					<h:graphicImage value="#{prMB.produit.image}"
-						style="width:100px; height:100px" />
-				</p:column>
 			</p:dataTable>
 
 		</h:form>

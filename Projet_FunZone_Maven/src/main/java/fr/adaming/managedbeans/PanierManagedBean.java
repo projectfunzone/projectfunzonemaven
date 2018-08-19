@@ -64,7 +64,6 @@ public class PanierManagedBean implements Serializable {
 	private Produit produit;
 	private int quantite;
 	private LigneCommande ligneCommande;
-
 	private List<LigneCommande> listePanier = new ArrayList<>();
 
 	/**
@@ -93,8 +92,10 @@ public class PanierManagedBean implements Serializable {
 			if (panSession.getListeCommande() != null) {
 
 				// on stocke la nouvelle liste dans la nouvelle
-				for (LigneCommande elem : panSession.getListeCommande()) {
-					this.listePanier.add(elem);
+				for (LigneCommande lc : panSession.getListeCommande()) {
+					if (lc.getQuantite() != 0) {
+						this.listePanier.add(lc);
+					}
 				}
 
 			}
@@ -209,7 +210,7 @@ public class PanierManagedBean implements Serializable {
 						if ((this.quantite + lc.getQuantite()) <= prOut.getQuantite()) {
 
 							lc.setQuantite(lc.getQuantite() + this.quantite);
-							lc.setPrix(lc.getPrix()+(this.quantite*prOut.getPrix()));
+							lc.setPrix(lc.getPrix() + (this.quantite * prOut.getPrix()));
 
 							// on passe l'indice à 1 vu que le produit a été
 							// ajouté dans une ligne déjà existante
@@ -217,7 +218,7 @@ public class PanierManagedBean implements Serializable {
 
 							// on ajoute au panier la liste de commande
 							panier.setListeCommande(this.listePanier);
-							
+
 							return "panierAfficher";
 
 						} else {
@@ -237,10 +238,10 @@ public class PanierManagedBean implements Serializable {
 			// n'existait pas dans le panié et qu'il n'a pas été ajouté
 			if (verifAjoutPanier == 0) {
 
-				//Création d'une ligne de commande
-				LigneCommande lcOut = panierService.ajoutProdPanier(prOut, this.quantite);
+				// Création d'une ligne de commande
+				LigneCommande lcOut = panierService.addProdPanier(prOut, this.quantite);
 
-				//vérification que la ligne de commande a été créée
+				// vérification que la ligne de commande a été créée
 				if (lcOut != null) {
 
 					// on ajoute à la liste de ligne de commande cette nouvelle
@@ -253,7 +254,7 @@ public class PanierManagedBean implements Serializable {
 					// on ajoute à la session PanierClient la nouveau panier
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
 
-					return "panierAfficher";
+					return "";
 
 				} else {
 
@@ -276,6 +277,38 @@ public class PanierManagedBean implements Serializable {
 		// on renvoie au panier
 		return "";
 
+	}
+
+	public String ajoutProdPanierDirect() {
+
+		panierService.addProdPanierDirect(this.ligneCommande, this.quantite);
+		
+		// on ajoute au panier la liste de commande
+		panier.setListeCommande(this.listePanier);
+		
+		// on ajoute à la session PanierClient la nouveau panier
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
+
+		return "";
+	}
+
+	public String supprProdPanierDirect() {
+
+		if (this.ligneCommande.getQuantite() > 0) {
+			panierService.supprProdPanierDirect(this.ligneCommande, this.quantite);
+
+			if (this.ligneCommande.getQuantite() == 0) {
+				this.listePanier.remove(this.ligneCommande);
+				
+				// on ajoute au panier la liste de commande
+				panier.setListeCommande(this.listePanier);
+				
+				// on ajoute à la session PanierClient la nouveau panier
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
+			}
+		}
+
+		return "";
 	}
 
 }
