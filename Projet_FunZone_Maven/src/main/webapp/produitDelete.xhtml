@@ -8,15 +8,16 @@
 
 <h:head>
 	<title>Supprimer Produit</title>
-	<h:outputStylesheet library="css" name="style.css"  />
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 	<ui:insert>
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
 
+	<h1 style="color: #C0C0C0; text-align: center">Suppression d'un
+		produit</h1>
 
-	<h1>Suppression d'un produit</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 			Designation : <h:inputText value="#{prMB.produit.designation}" />
@@ -24,7 +25,7 @@
 			<h:commandButton value="supprimer" action="#{prMB.deleteProduit}" />
 		</h:panelGrid>
 	</h:form>
-	<h1 style="color: red; text-align: center">
+	<h1 style="color: #C0C0C0; text-align: center">
 		<h:messages />
 	</h1>
 

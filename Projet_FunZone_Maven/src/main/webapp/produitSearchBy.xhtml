@@ -14,7 +14,8 @@
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
 
-	<h1>Rechercher des produits</h1>
+	<h1 style="color: #C0C0C0; text-align: center">Rechercher un
+		produit</h1>
 
 	<h:form>
 		<h:panelGrid columns="2">
@@ -24,8 +25,8 @@
 
 
 		</h:panelGrid>
-		<p:commandButton value="Rechercher"
-			action="#{prMB.searchProduitBy}" update="@all" />
+		<p:commandButton value="Rechercher" action="#{prMB.searchProduitBy}"
+			update="@all" />
 
 
 		<p:dataTable var="pr" value="#{prMB.listeProduitBy}">
@@ -64,10 +65,9 @@
 			</p:column>
 		</p:dataTable>
 	</h:form>
-	
-	<h1 style="color: red; text-align: center">
-		<h:messages />
-		</h1>
 
+	<h1 style="color: #C0C0C0; text-align: center">
+		<h:messages />
+	</h1>
 </h:body>
 </html>

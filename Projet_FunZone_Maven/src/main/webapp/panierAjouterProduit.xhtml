@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Ajouter Panier</title>
-	<h:outputStylesheet library="css" name="style.css"  />
-</h:head>
-<h:body>
-	<ui:insert>
-		<ui:include src="#{headerMB.header}" />
-	</ui:insert>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
+	<h:head>
+		<title>Decconexion du client</title>
+		<h:outputStylesheet library="css" name="common-style.css" />
+	</h:head>
+	<ui:define name="contentTab">
+		<h1 style="color: #2FFF2F; text-align: center">Ajouter au panier</h1>
 
-	<h1>Ajouter au panier</h1>
-
-	<h:form entype="multipart/form-data">
-		<h:panelGrid columns="2">
+		<h:form entype="multipart/form-data">
+			<h:panelGrid columns="2">
 		Produit : <p:inputText value="#{panMB.produit.idProduit}"
-				label="n° du produit" />
+					label="n° du produit" />
 		Quantité : <p:inputText value="#{panMB.quantite}"
-				label="quté souhaitée" />
-			<p:commandButton value="Ajouter au panier"
-				action="#{panMB.addProdPanier}" update="@all" />
-		</h:panelGrid>
-	</h:form>
-	<h1 style="color: red; text-align: center">
-		<h:messages />
-	</h1>
-</h:body>
-</html>
+					label="quté souhaitée" />
+				<p:commandButton value="Ajouter au panier"
+					action="#{panMB.addProdPanier}" update="@all" />
+			</h:panelGrid>
+		</h:form>
+		<h1 style="color: #2FFF2F; text-align: center">
+			<h:messages />
+		</h1>
+	</ui:define>
+</ui:composition>

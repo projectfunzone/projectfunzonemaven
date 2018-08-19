@@ -7,14 +7,15 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title></title>
-	<h:outputStylesheet library="css" name="style.css"  />
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 	<ui:insert>
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
-
-	<h1>Liste des commandes clients</h1>
+	
+	<h1 style="color: #C0C0C0; text-align: center">Liste des commandes
+		passées</h1>
 	<p:dataTable var="cmd" value="#{cmdMB.listeAllCommandes}">
 
 		<p:column headerText="N° commande">
@@ -22,8 +23,9 @@
 		</p:column>
 
 		<p:column headerText="Date de la commande">
-			<h:outputText value="#{cmd.dateCommande}" >
-				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="Europe/Paris"/>
+			<h:outputText value="#{cmd.dateCommande}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+					timeZone="Europe/Paris" />
 			</h:outputText>
 		</p:column>
 

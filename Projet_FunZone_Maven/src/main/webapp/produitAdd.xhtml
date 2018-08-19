@@ -7,15 +7,15 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta charset="UTF-8" />
-	<title>Ajouter une Produit</title>
-	<h:outputStylesheet library="css" name="style.css"  />
+	<title>Ajouter un nouveau Produit</title>
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <body>
 	<ui:insert>
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
+	<h1 style="color: #C0C0C0; text-align: center">Créer un produit</h1>
 
-	<h1>Créer un produit</h1>
 	<h:form enctype="multipart/form-data">
 		<h:panelGrid columns="2">
 			ID Categorie correspondante : <h:inputText
@@ -31,7 +31,7 @@
 			<h:commandButton value="ajouter" action="#{prMB.addProduit}" />
 		</h:panelGrid>
 	</h:form>
-	<h1 style="color: red; text-align: center">
+	<h1 style="color: #C0C0C0; text-align: center">
 		<h:messages />
 	</h1>
 

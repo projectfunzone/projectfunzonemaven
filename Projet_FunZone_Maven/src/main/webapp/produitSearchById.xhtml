@@ -14,7 +14,8 @@
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
 
-	<h1>Rechercher un produit</h1>
+	<h1 style="color: #C0C0C0; text-align: center">Rechercher un
+		produit par son numéro de série</h1>
 
 	<h:form>
 		<h:panelGrid columns="2">
@@ -23,25 +24,25 @@
 		</h:panelGrid>
 		<p:commandButton value="Rechercher" action="#{prMB.searchProduitById}"
 			update="@all" />
-<h:panelGrid columns="2">
+		<h:panelGrid columns="2">
 		Id du produit : <h:outputText value="#{prMB.produit.idProduit}" />
 		Designation : <h:outputText value="#{prMB.produit.designation}" />
 		Description : <h:outputText value="#{prMB.produit.description}" />
 		Prix : <h:outputText value="#{prMB.produit.prix}">
-			<f:convertNumber currencySymbol="€" type="currency" />
-		</h:outputText>
+				<f:convertNumber currencySymbol="€" type="currency" />
+			</h:outputText>
 		Quantité restante : <h:outputText value="#{prMB.produit.quantite}">
-			<f:convertNumber currencySymbol="" type="currency" />
-		</h:outputText>
+				<f:convertNumber currencySymbol="" type="currency" />
+			</h:outputText>
 		Photo : <h:graphicImage value="#{prMB.produit.image}"
-			style="width:100px; height:100px" />
-		Catégorie : <h:outputText value="#{prMB.produit.categorie.nomCategorie}" />
-</h:panelGrid>
+				style="width:100px; height:100px" />
+		Catégorie : <h:outputText
+				value="#{prMB.produit.categorie.nomCategorie}" />
+		</h:panelGrid>
 	</h:form>
 
-	<h1 style="color: red; text-align: center">
+	<h1 style="color: #C0C0C0; text-align: center">
 		<h:messages />
 	</h1>
-
 </h:body>
 </html>
