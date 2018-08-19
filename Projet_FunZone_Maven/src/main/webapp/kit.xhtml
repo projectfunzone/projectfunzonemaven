@@ -11,7 +11,20 @@
 	<ui:define name="contentTab">
 		<h1>Qu'acheter pour bien commencer ?</h1>
 		<h:form>
-			<p:dataTable var="kit" value="#{prMB.listeProduitDebutant}">
+			<p:dataTable var="kit" value="#{prMB.listeProduitsDebutant}"
+				widgetVar="produitsTable"
+				emptyMessage="Pas de produits trouvés pour ces critères"
+				filteredValue="#{prMB.listeProduitFiltre}">
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Rechercher sur les champs :" />
+						<p:inputText id="globalFilter"
+							onkeyup="PF('produitsTable').filter()" style="width:150px"
+							placeholder="mot clef" />
+					</p:outputPanel>
+				</f:facet>
+
 				<p:column headerText="Id Produit">
 					<h:outputText value="#{kit.idProduit}" />
 				</p:column>

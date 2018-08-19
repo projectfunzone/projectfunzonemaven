@@ -11,8 +11,9 @@
 	<ui:define name="contentTab">
 		<!-- Galerie promotionnelle affichant les produits disponibles sur le site -->
 		<p:contentFlow value="#{imgMB.images}" var="image">
-			<p:graphicImage value="resources/images/#{image}"
-				styleClass="content" />
+			<p:graphicImage
+				value="${pageContext.request.contextPath}/resources/img/${image}"
+				styleClass="content" cache="false" />
 			<div class="caption">#{image}</div>
 		</p:contentFlow>
 	</ui:define>

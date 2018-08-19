@@ -203,6 +203,8 @@ public class ProduitManagedBean {
 
 		if (verif != 0) {
 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Suppression effectuée"));
+
 		} else {
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Suppression invalide"));
@@ -221,6 +223,12 @@ public class ProduitManagedBean {
 
 		if (verif != 0) {
 
+			if (this.produit.isVenteFlash()) {
+				listeProduitsFlash.add(this.produit);
+				System.out.println(listeProduitsFlash);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Modification ok"));
+			}
+
 		} else {
 
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Modification invalide"));
@@ -235,26 +243,29 @@ public class ProduitManagedBean {
 	 */
 	public String addProduit() {
 
-		// on charge le dossier dans l'attribut photo de la classe Categorie
+		// on charge le dossier dans l'attribut photo de la classe Produit
 		this.produit.setPhoto(file.getContents());
-
 		Produit pAjout = produitService.addProduit(this.produit, this.categorie);
 
 		// on teste ici l'existence de cet ajout
 		if (pAjout.getIdProduit() != 0) {
 
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit ajouté"));
 			// On regarde si dans la description du produit il est fait mention
 			// de
 			// "superhéros" et si oui on ajoute le produit créé dans la liste
 			// des débutants aka "superhéros"
-			/*if (pAjout.getDescription().contentEquals("superhéros")) {
-				listeProduitsDebutant.add(pAjout);
-				System.out.println(listeProduitsDebutant);
-			}
+			/*
+			 * if (pAjout.getDescription().contentEquals("superhéros")) {
+			 * listeProduitsDebutant.add(pAjout);
+			 * System.out.println(listeProduitsDebutant); }
+			 */
+
 			if (pAjout.isVenteFlash()) {
-				listeProduitsFlash.add(pAjout);
 				System.out.println(listeProduitsFlash);
-			}*/
+				listeProduitsFlash.add(pAjout);
+
+			}
 
 		} else {
 

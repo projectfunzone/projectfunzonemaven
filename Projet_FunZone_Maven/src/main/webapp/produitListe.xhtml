@@ -56,14 +56,15 @@
 						action="#{panMB.addProdPanier}">
 						<f:setPropertyActionListener value="#{pr}"
 							target="#{panMB.produit}" />
-							<f:setPropertyActionListener value="1"
-							target="#{panMB.quantite}" />
+						<f:setPropertyActionListener value="1" target="#{panMB.quantite}" />
 					</p:commandButton>
 				</p:column>
 
 				<p:column headerText="Image">
-					<h:graphicImage value="#{pr.image}"
-						style="width:100px; height:100px" />
+					<p:graphicImage value="#{pr.image}"
+						style="width:100px; height:100px">
+						<f:param name="image" value="#{image.id}" />
+					</p:graphicImage>
 				</p:column>
 			</p:dataTable>
 		</h:form>

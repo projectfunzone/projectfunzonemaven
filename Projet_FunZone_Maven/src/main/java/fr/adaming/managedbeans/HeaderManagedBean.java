@@ -27,9 +27,9 @@ public class HeaderManagedBean {
 		Client clOut = (Client) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("clSession");
 
 		if (clOut != null) {
-			this.header="/templates/clientConnectHeader.xhtml";
+			this.header="templates/templateClientConnectHeader.xhtml";
 		} else {
-			this.header="/templates/clientHeader.xhtml";
+			this.header="templates/templateClientHeader.xhtml";
 		}
 
 	}

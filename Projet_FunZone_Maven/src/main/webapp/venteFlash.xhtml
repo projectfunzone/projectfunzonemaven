@@ -16,7 +16,7 @@
 			offres au meilleur prix !</p>
 
 		<h:form>
-			<p:dataTable var="pr" value="#{prMB.listeProduitFlash}"
+			<p:dataTable var="pr" value="#{prMB.listeProduitsFlash}"
 				widgetVar="produitsTable"
 				emptyMessage="Pas de produits trouvés pour ces critères"
 				filteredValue="#{prMB.listeProduitFiltre}">
@@ -30,8 +30,7 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:column filterBy="#{pr.idProduit}" headerText="ID" footerText="ID"
-					filterMatchMode="contains">
+				<p:column filterBy="#{pr.idProduit}" headerText="ID" filterMatchMode="contains">
 					<h:outputText value="#{pr.idProduit}" />
 				</p:column>
 
@@ -39,25 +38,21 @@
 					<p:commandLink value="Ajouter au panier" action="addPanier.xhtml" />
 				</p:column>
 
-				<p:column filterBy="#{pr.designation}" headerText="Nom"
-					footerText="Nom" filterMatchMode="contains">
+				<p:column filterBy="#{pr.designation}" headerText="Nom" filterMatchMode="contains">
 					<h:outputText value="#{pr.designation}" />
 				</p:column>
 
-				<p:column filterBy="#{pr.description}" headerText="Description"
-					footerText="Description" filterMatchMode="contains">
+				<p:column filterBy="#{pr.description}" headerText="Description" filterMatchMode="contains">
 					<h:outputText value="#{pr.description}" />
 				</p:column>
 
-				<p:column filterBy="#{pr.prix}" headerText="Prix" footerText="Prix"
-					filterFunction="#{pMB.filterByPrice}">
+				<p:column filterBy="#{pr.prix}" headerText="Prix" filterFunction="#{pMB.filterByPrice}">
 					<h:outputText value="#{pr.prix}" style="color : red">
 						<f:convertNumber currencySymbol="€" type="currency" />
 					</h:outputText>
 				</p:column>
 
 				<p:column filterBy="#{pr.quantite}" headerText="Quantite disponible"
-					footerText="Quantite disponible"
 					filterFunction="#{prMB.filterByPrice}">
 					<h:outputText value="#{pr.quantite}">
 						<f:convertNumber currencySymbol="" type="currency" />
