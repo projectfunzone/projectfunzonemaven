@@ -13,8 +13,10 @@ coté client
 		- recap commande avec liste de produits
 		- adresse
 		- ajouter le logo
+		
 - Compte client
-- Vente flash/kit de depart a rendre fonctionnel
+
+- Vente flash/kit de depart a rendre fonctionnel : probleme de liste
 
 
 

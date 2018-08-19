@@ -1,39 +1,34 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta charset="UTF-8" />
-	<title>Ajouter un nouveau Produit</title>
-	<h:outputStylesheet library="css" name="style.css" />
-</h:head>
-<body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
-	<h1 style="color: #C0C0C0; text-align: center">Créer un produit</h1>
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateAdmin.xhtml">
+	<h:head>
+		<title>Administration Console PFZ</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
 
-	<h:form enctype="multipart/form-data">
-		<h:panelGrid columns="2">
+		<h1 style="color: #C0C0C0; text-align: center">Créer un produit</h1>
+
+		<h:form enctype="multipart/form-data">
+			<h:panelGrid columns="2">
 			ID Categorie correspondante : <h:inputText
-				value="#{catMB.categorie.idCategorie}" />
+					value="#{catMB.categorie.idCategorie}" />
 			Designation du produit : <h:inputText
-				value="#{prMB.produit.designation}" />
+					value="#{prMB.produit.designation}" />
 			Description : <h:inputText value="#{prMB.produit.description}" />
 			Prix : <h:inputText value="#{prMB.produit.prix}" />
 			Quantite : <h:inputText value="#{prMB.produit.quantite}" />
 			Vente Flash : <h:inputText value="#{prMB.produit.venteFlash}" />
 			Photo : <p:fileUpload value="#{prMB.file}" mode="simple"
-				skinSimple="true" />
-			<h:commandButton value="ajouter" action="#{prMB.addProduit}" />
-		</h:panelGrid>
-	</h:form>
-	<h1 style="color: #C0C0C0; text-align: center">
-		<h:messages />
-	</h1>
-
-</body>
-</html>
+					skinSimple="true" />
+				<h:commandButton value="ajouter" action="#{prMB.addProduit}" />
+			</h:panelGrid>
+		</h:form>
+		<h1 style="color: #C0C0C0; text-align: center">
+			<h:messages />
+		</h1>
+	</ui:define>
+</ui:composition>

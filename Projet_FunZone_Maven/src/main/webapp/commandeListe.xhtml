@@ -1,41 +1,33 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title></title>
-	<h:outputStylesheet library="css" name="style.css" />
-</h:head>
-<h:body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
-	
-	<h1 style="color: #C0C0C0; text-align: center">Liste des commandes
-		passées</h1>
-	<p:dataTable var="cmd" value="#{cmdMB.listeAllCommandes}">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateAdmin.xhtml">
+	<h:head>
+		<title>Administration Console PFZ</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
 
-		<p:column headerText="N° commande">
-			<h:outputText value="#{cmd.idCommande}" />
-		</p:column>
+		<h1 style="color: #C0C0C0; text-align: center">Liste des
+			commandes passées</h1>
+		<p:dataTable var="cmd" value="#{cmdMB.listeAllCommandes}">
 
-		<p:column headerText="Date de la commande">
-			<h:outputText value="#{cmd.dateCommande}">
-				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
-					timeZone="Europe/Paris" />
-			</h:outputText>
-		</p:column>
+			<p:column headerText="N° commande">
+				<h:outputText value="#{cmd.idCommande}" />
+			</p:column>
 
-		<p:column headerText="Client">
-			<h:outputText value="#{cmd.client.nomClient}" />
-		</p:column>
+			<p:column headerText="Date de la commande">
+				<h:outputText value="#{cmd.dateCommande}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+						timeZone="Europe/Paris" />
+				</h:outputText>
+			</p:column>
 
-
-	</p:dataTable>
-
-
-</h:body>
-</html>
+			<p:column headerText="Client">
+				<h:outputText value="#{cmd.client.nomClient}" />
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>

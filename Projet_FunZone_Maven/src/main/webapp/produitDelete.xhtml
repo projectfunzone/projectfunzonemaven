@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateAdmin.xhtml">
+	<h:head>
+		<title>Administration Console PFZ</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
 
-<h:head>
-	<title>Supprimer Produit</title>
-	<h:outputStylesheet library="css" name="style.css" />
-</h:head>
-<h:body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
+		<h1 style="color: #C0C0C0; text-align: center">Suppression d'un
+			produit</h1>
 
-	<h1 style="color: #C0C0C0; text-align: center">Suppression d'un
-		produit</h1>
-
-	<h:form>
-		<h:panelGrid columns="2">
+		<h:form>
+			<h:panelGrid columns="2">
 			Designation : <h:inputText value="#{prMB.produit.designation}" />
 
-			<h:commandButton value="supprimer" action="#{prMB.deleteProduit}" />
-		</h:panelGrid>
-	</h:form>
-	<h1 style="color: #C0C0C0; text-align: center">
-		<h:messages />
-	</h1>
+				<h:commandButton value="supprimer" action="#{prMB.deleteProduit}" />
+			</h:panelGrid>
+		</h:form>
+		<h1 style="color: #C0C0C0; text-align: center">
+			<h:messages />
+		</h1>
 
-</h:body>
-</html>
+	</ui:define>
+</ui:composition>

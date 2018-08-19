@@ -1,58 +1,52 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title></title>
-	<h:outputStylesheet library="css" name="style.css" />
-</h:head>
-<h:body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateAdmin.xhtml">
+	<h:head>
+		<title>Administration Console PFZ</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
 
-	<h1 style="color: #C0C0C0; text-align: center">Rechercher un client dans la base de donnée</h1>
+		<h1 style="color: #C0C0C0; text-align: center">Rechercher un
+			client dans la base de donnée</h1>
 
-	<h:form>
-		<h:panelGrid columns="2">
+		<h:form>
+			<h:panelGrid columns="2">
 		Par id: <p:inputText value="#{clMB.client.idClient}" />
 		Par Nom: <p:inputText value="#{clMB.client.nomClient}" />
-		</h:panelGrid>
-		<p:commandButton value="Rechercher"
-			action="#{clMB.getClientByIdNomMail}" update="@all" />
-	</h:form>
+			</h:panelGrid>
+			<p:commandButton value="Rechercher"
+				action="#{clMB.getClientByIdNomMail}" update="@all" />
+		</h:form>
 
+		<p:dataTable var="cl" value="#{clMB.listeGetClient}">
 
+			<p:column headerText="Id">
+				<h:outputText value="#{cl.idClient}" />
+			</p:column>
 
-	<p:dataTable var="cl" value="#{clMB.listeGetClient}">
+			<p:column headerText="Nom">
+				<h:outputText value="#{cl.nomClient}" />
+			</p:column>
 
-		<p:column headerText="Id">
-			<h:outputText value="#{cl.idClient}" />
-		</p:column>
+			<p:column headerText="Adresse">
+				<h:outputText value="#{cl.adresse}" />
+			</p:column>
 
-		<p:column headerText="Nom">
-			<h:outputText value="#{cl.nomClient}" />
-		</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{cl.email}" />
+			</p:column>
 
-		<p:column headerText="Adresse">
-			<h:outputText value="#{cl.adresse}" />
-		</p:column>
+			<p:column headerText="Téléphone">
+				<h:outputText value="#{cl.tel}" />
+			</p:column>
+		</p:dataTable>
 
-		<p:column headerText="Email">
-			<h:outputText value="#{cl.email}" />
-		</p:column>
-
-		<p:column headerText="Téléphone">
-			<h:outputText value="#{cl.tel}" />
-		</p:column>
-	</p:dataTable>
-
-	<h1 style="color: #C0C0C0; text-align: center">
-		<h:messages />
-	</h1>
-
-</h:body>
-</html>
+		<h1 style="color: #C0C0C0; text-align: center">
+			<h:messages />
+		</h1>
+	</ui:define>
+</ui:composition>

@@ -1,56 +1,50 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Rechercher une commande</title>
-	<h:outputStylesheet library="css" name="style.css" />
-</h:head>
-<h:body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateAdmin.xhtml">
+	<h:head>
+		<title>Administration Console PFZ</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
 
-	<h1 style="color: #C0C0C0; text-align: center">Rechercher une commande</h1>
+		<h1 style="color: #C0C0C0; text-align: center">Rechercher une
+			commande</h1>
 
-	<h:form>
-		<h:panelGrid columns="2">
+		<h:form>
+			<h:panelGrid columns="2">
 		Par id: <p:inputText value="#{cmdMB.commande.idCommande}" />
 
-		</h:panelGrid>
-		<p:commandButton value="Rechercher"
-			action="#{cmdMB.getCommandeByIdOrClient}" update="@all" />
+			</h:panelGrid>
+			<p:commandButton value="Rechercher"
+				action="#{cmdMB.getCommandeByIdOrClient}" update="@all" />
 
-		<p:commandButton value="Afficher toutes vos commandes"
-			action="#{cmdMB.getCommandeByIdOrClient}" update="@all" />
-	</h:form>
+			<p:commandButton value="Afficher toutes vos commandes"
+				action="#{cmdMB.getCommandeByIdOrClient}" update="@all" />
+		</h:form>
 
+		<p:dataTable var="cmd" value="#{cmdMB.listeGetCommande}">
 
+			<p:column headerText="Id">
+				<h:outputText value="#{cmd.idCommande}" />
+			</p:column>
 
-	<p:dataTable var="cmd" value="#{cmdMB.listeGetCommande}">
-
-		<p:column headerText="Id">
-			<h:outputText value="#{cmd.idCommande}" />
-		</p:column>
-
-		<p:column headerText="Date">
-			<h:outputText value="#{cmd.dateCommande}" />
-		</p:column>
+			<p:column headerText="Date">
+				<h:outputText value="#{cmd.dateCommande}" />
+			</p:column>
 
 
-	</p:dataTable>
+		</p:dataTable>
 
-	<h1 style="color: #C0C0C0; text-align: center">
-		<h:messages />
-	</h1>
+		<h1 style="color: #C0C0C0; text-align: center">
+			<h:messages />
+		</h1>
 
-	<h:panelGrid columns="2">
+		<h:panelGrid columns="2">
 		Id : <h:outputText value="#{cmdMB.commande.idCommande}" />
 		Date : <h:outputText value="#{cmdMB.commande.dateCommande}" />
-	</h:panelGrid>
-
-</h:body>
-</html>
+		</h:panelGrid>
+	</ui:define>
+</ui:composition>

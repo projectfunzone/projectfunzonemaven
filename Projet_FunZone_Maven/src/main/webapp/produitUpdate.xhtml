@@ -1,45 +1,40 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta charset="UTF-8" />
-	<title>Modifier un produit</title>
-	<h:outputStylesheet library="css" name="style.css" />
-</h:head>
-<body>
-	<ui:insert>
-		<ui:include src="/templates/adminHeader.xhtml" />
-	</ui:insert>
+	xmlns:p="http://primefaces.org/ui"
+	template="${pageContext.request.contextPath}/templates/templateAdmin.xhtml">
+	<h:head>
+		<title>Administration Console PFZ</title>
+		<h:outputStylesheet library="css" name="style.css" />
+	</h:head>
+	<ui:define name="contentTab">
 
-	<h1 style="color: #C0C0C0; text-align: center">Modifier un produit</h1>
-	<h:form>
+		<h1 style="color: #C0C0C0; text-align: center">Modifier un
+			produit</h1>
+		<h:form>
 
-		<h:panelGrid columns="2">
+			<h:panelGrid columns="2">
 			Id du produit à modifier*: <p:inputText
-				value="#{prMB.produit.idProduit}" label="Id" required="true" />
-		</h:panelGrid>
-		<p:commandButton value="Rechercher" action="#{prMB.searchProduitbyId}"
-			update="@all" />
-		<h:panelGrid columns="2">
+					value="#{prMB.produit.idProduit}" label="Id" required="true" />
+			</h:panelGrid>
+			<p:commandButton value="Rechercher"
+				action="#{prMB.searchProduitbyId}" update="@all" />
+			<h:panelGrid columns="2">
 		
-			d Categorie : <h:outputText
-				value="#{prMB.produit.categorie.idCategorie}" />
+			Id Categorie : <h:outputText
+					value="#{prMB.produit.categorie.idCategorie}" />
 			Designation du produit : <h:inputText
-				value="#{prMB.produit.designation}" />
+					value="#{prMB.produit.designation}" />
 			Description : <h:inputText value="#{prMB.produit.description}" />
 			Prix : <h:inputText value="#{prMB.produit.prix}" />
 			Quantite : <h:inputText value="#{prMB.produit.quantite}" />
 			Vente Flash : <h:inputText value="#{prMB.produit.venteFlash}" />
-			<h:commandButton value="modifier" action="#{prMB.updateProduit}" />
-		</h:panelGrid>
-	</h:form>
-	<h1 style="color: #C0C0C0; text-align: center">
-		<h:messages />
-	</h1>
-
-</body>
-</html>
+				<h:commandButton value="modifier" action="#{prMB.updateProduit}" />
+			</h:panelGrid>
+		</h:form>
+		<h1 style="color: #C0C0C0; text-align: center">
+			<h:messages />
+		</h1>
+	</ui:define>
+</ui:composition>

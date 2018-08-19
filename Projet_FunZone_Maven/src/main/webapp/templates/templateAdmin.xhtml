@@ -1,0 +1,25 @@
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body style="background-color: #C0C0C0">
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="225"
+			styleClass="middlePanelClass" style="background-color: #C0C0C0">
+			<ui:insert name="header">
+				<ui:include src="/templates/adminHeader.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" style="background-color: #C0C0C0">
+			<ui:insert name="contentTab">
+			</ui:insert>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</h:html>
