@@ -50,7 +50,7 @@ public class Produit implements Serializable{
 	 * Transformation de l'association UML en JAVA entre Produit et Categorie avec propagation
 	 * des opérations sur les Entity d'association
 	 */
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="categorie_id", referencedColumnName="id_categorie") //clef etrangere en SQL
 	private Categorie categorie;
 	

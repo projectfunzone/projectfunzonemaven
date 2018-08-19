@@ -11,13 +11,13 @@
 	<ui:define name="contentTab">
 		<h1>Créer un compte client</h1>
 
-		<h:form>
+		<h:form id="formulaire">
 			<h:panelGrid columns="2">
 		Nom*: <p:inputText value="#{clMB.client.nomClient}" label="Nom"
 					required="true" />
 		Adresse: <p:inputText value="#{clMB.client.adresse}" label="Adresse" />
 		Téléphone: <p:inputText value="#{clMB.client.tel}" label="Téléphone" />
-		Email*: <p:inputText value="#{clMB.client.email}" label="Email"
+		Email*: <p:inputText id="email" value="#{clMB.client.email}" label="Email"
 					required="true" />
 		Mot de passe*: <p:password id="pwd1" match="pwd2" label="Mot de passe"
 					required="true" />

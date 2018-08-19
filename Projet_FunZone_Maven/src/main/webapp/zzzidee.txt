@@ -23,12 +23,13 @@ coté client
 
 côté admin
 - Categorie : 
-	- cli : envoyer sur la liste des produits associés
+	- clic : envoyer sur la liste des produits associés
 - Produit : 
 	- clic :envoyer sur modifier produit
 	- modifier la categorie
-- gestions des stocks (creer commande)
+
 - classe mail à faire
+
 - validator pour mdp, adresse mail, adresse
 - Liste Produits/Categorie :
 	- liste déroulante à la place de la saisie des ID
