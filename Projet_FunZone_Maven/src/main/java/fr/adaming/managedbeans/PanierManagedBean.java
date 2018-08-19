@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.management.ListenerNotFoundException;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.LigneCommande;
@@ -65,6 +66,7 @@ public class PanierManagedBean implements Serializable {
 	private int quantite;
 	private LigneCommande ligneCommande;
 	private List<LigneCommande> listePanier = new ArrayList<>();
+	private double prixTotal;
 
 	/**
 	 * Constructeur vide
@@ -95,7 +97,14 @@ public class PanierManagedBean implements Serializable {
 				for (LigneCommande lc : panSession.getListeCommande()) {
 					if (lc.getQuantite() != 0) {
 						this.listePanier.add(lc);
+
 					}
+
+					System.out.println(this.prixTotal);
+					// calcul du prix total de la commande
+					this.prixTotal = panierService.calculTotalPanier(panSession.getListeCommande());
+
+					System.out.println(this.prixTotal);
 				}
 
 			}
@@ -170,6 +179,14 @@ public class PanierManagedBean implements Serializable {
 		this.listePanier = listePanier;
 	}
 
+	public double getPrixTotal() {
+		return prixTotal;
+	}
+
+	public void setPrixTotal(double prixTotal) {
+		this.prixTotal = prixTotal;
+	}
+
 	/**
 	 * Ajouter un produit dans son panier en passant par une ligne de commande.
 	 * Ce panier n'est pas stocké dans la base de donnée (transient) mais
@@ -219,6 +236,9 @@ public class PanierManagedBean implements Serializable {
 							// on ajoute au panier la liste de commande
 							panier.setListeCommande(this.listePanier);
 
+							// pour calculer le prix total de la commande
+							this.prixTotal = panierService.calculTotalPanier(panier.getListeCommande());
+
 							return "panierAfficher";
 
 						} else {
@@ -251,6 +271,9 @@ public class PanierManagedBean implements Serializable {
 					// on ajoute au panier la liste de commande
 					panier.setListeCommande(this.listePanier);
 
+					// pour calculer le prix total de la commande
+					this.prixTotal = panierService.calculTotalPanier(panier.getListeCommande());
+
 					// on ajoute à la session PanierClient la nouveau panier
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
 
@@ -282,10 +305,13 @@ public class PanierManagedBean implements Serializable {
 	public String ajoutProdPanierDirect() {
 
 		panierService.addProdPanierDirect(this.ligneCommande, this.quantite);
-		
+
 		// on ajoute au panier la liste de commande
 		panier.setListeCommande(this.listePanier);
-		
+
+		// pour calculer le prix total de la commande
+		this.prixTotal = panierService.calculTotalPanier(panier.getListeCommande());
+
 		// on ajoute à la session PanierClient la nouveau panier
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
 
@@ -297,15 +323,20 @@ public class PanierManagedBean implements Serializable {
 		if (this.ligneCommande.getQuantite() > 0) {
 			panierService.supprProdPanierDirect(this.ligneCommande, this.quantite);
 
+			// permet de supprimer la ligne si la quantité est à 0
 			if (this.ligneCommande.getQuantite() == 0) {
 				this.listePanier.remove(this.ligneCommande);
-				
-				// on ajoute au panier la liste de commande
-				panier.setListeCommande(this.listePanier);
-				
-				// on ajoute à la session PanierClient la nouveau panier
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
+
 			}
+
+			// on ajoute au panier la liste de commande
+			panier.setListeCommande(this.listePanier);
+
+			// pour calculer le prix total de la commande
+			this.prixTotal = panierService.calculTotalPanier(panier.getListeCommande());
+
+			// on ajoute à la session PanierClient la nouveau panier
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
 		}
 
 		return "";

@@ -39,5 +39,13 @@ public interface IPanierService {
 	 * @return
 	 */
 	public LigneCommande searchLCPanierByIdProduit(List<LigneCommande> listeLCPanier, Produit pr);
+	
+	/**
+	 * méthode pour calculer le prix total du panier
+	 * @param listeLCPanier
+	 * @param prixTotal
+	 * @return
+	 */
+	public double calculTotalPanier(List<LigneCommande> listeLCPanier);
 
 }

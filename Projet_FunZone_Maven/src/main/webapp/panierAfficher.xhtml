@@ -14,30 +14,35 @@
 			<p:dataTable id="tableau" var="lc" value="#{panMB.listePanier}">
 
 				<!-- nom du produit ajouté au panier -->
-				<p:column headerText="Nom du produit">
+				<p:column headerText="Nom du produit" >
 					<h:outputText value="#{lc.produit.designation}" />
 				</p:column>
 
-				<p:column headerText="Quantité">
-					<p:commandButton icon="ui-icon-circle-minus" action="#{panMB.supprProdPanierDirect}" update="tableau">
-						<f:setPropertyActionListener value="#{lc}" target="#{panMB.ligneCommande}" />
+				<p:column headerText="Quantité" footerText="TOTAL">
+					<p:commandButton icon="ui-icon-circle-minus"
+						action="#{panMB.supprProdPanierDirect}" update="tableau">
+						<f:setPropertyActionListener value="#{lc}"
+							target="#{panMB.ligneCommande}" />
 					</p:commandButton>
 
 
-					
+
 					<h:outputText id="qte" value="#{lc.quantite}" />
-					
-					
-					<p:commandButton icon="ui-icon-circle-plus" action="#{panMB.ajoutProdPanierDirect}" update="qte, prix">
-						<f:setPropertyActionListener value="#{lc}" target="#{panMB.ligneCommande}" />
+
+
+					<p:commandButton icon="ui-icon-circle-plus"
+						action="#{panMB.ajoutProdPanierDirect}" update="tableau">
+						<f:setPropertyActionListener value="#{lc}"
+							target="#{panMB.ligneCommande}" />
 					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Prix">
+				<p:column id="total" headerText="Prix" footerText="#{panMB.prixTotal} euros">
 					<h:outputText id="prix" value="#{lc.prix}" />
 				</p:column>
 
 			</p:dataTable>
+
 
 		</h:form>
 		<h:form>

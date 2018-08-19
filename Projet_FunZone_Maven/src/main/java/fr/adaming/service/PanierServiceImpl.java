@@ -1,24 +1,6 @@
 package fr.adaming.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.faces.context.FacesContext;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,6 +113,19 @@ public class PanierServiceImpl implements IPanierService {
 		}
 				
 		return null;
+	}
+
+
+
+	@Override
+	public double calculTotalPanier(List<LigneCommande> listeLCPanier) {
+		double prixTotal=0;
+		
+		for (LigneCommande lc : listeLCPanier) {
+			prixTotal=prixTotal+lc.getPrix();
+		}
+		
+		return prixTotal;
 	}
 
 
