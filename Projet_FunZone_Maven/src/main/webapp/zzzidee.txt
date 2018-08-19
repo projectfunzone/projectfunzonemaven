@@ -9,7 +9,6 @@ METIER:
 coté client
 - Commande / Panier
 	- confirmation sur les decisions panier/creer
-	- prix total sur le panier
 	- amelioration facture
 		- recap commande avec liste de produits
 		- adresse
@@ -17,9 +16,9 @@ coté client
 - Compte client
 - Vente flash/kit de depart a rendre fonctionnel
 
-- ajouter plusieurs fois le meme produit effectue une incremantation du nombre dans le panier
 
-- galerie produits à partir de la liste des produits
+
+
 
 côté admin
 - Categorie : 
@@ -28,7 +27,7 @@ côté admin
 	- clic :envoyer sur modifier produit
 	- modifier la categorie
 
-- classe mail à faire
+
 
 - validator pour mdp, adresse mail, adresse
 - Liste Produits/Categorie :

@@ -1,18 +1,20 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
 	<h:head>
-		<title>Les stocks</title>
+		<title>Catalogue produit</title>
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<ui:define name="contentTab">
-		<h1>Liste des produits</h1>
+	
+		<h1>Catégorie #{prMB.categorie.nomCategorie}</h1>
 
 		<h:form>
-			<p:dataTable var="pr" value="#{prMB.listeProduit}"
+			<p:dataTable var="pr" value="#{prMB.listeProduitBy}"
 				widgetVar="produitsTable"
 				emptyMessage="Pas de produits trouvés pour ces critères"
 				filteredValue="#{prMB.listeProduitFiltre}">
@@ -26,10 +28,6 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:column filterBy="#{pr.categorie.nomCategorie}" headerText="Catégorie"
-					filterMatchMode="contains">
-					<h:outputText value="#{pr.categorie.nomCategorie}" />
-				</p:column>
 
 				<p:column filterBy="#{pr.designation}" headerText="Nom"
 					filterMatchMode="contains">

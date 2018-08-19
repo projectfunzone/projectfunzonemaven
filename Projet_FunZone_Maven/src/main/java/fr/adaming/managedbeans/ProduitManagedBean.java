@@ -68,6 +68,7 @@ public class ProduitManagedBean {
 	@PostConstruct
 	public void init() {
 		this.listeProduit = produitService.getAllProduit();
+
 	}
 
 	/**
@@ -168,7 +169,7 @@ public class ProduitManagedBean {
 					new FacesMessage("Il n'y a pas de produit correspondant"));
 		}
 
-		return "";
+		return "produitListeParCategorie";
 
 	}
 

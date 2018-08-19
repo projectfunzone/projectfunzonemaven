@@ -26,14 +26,14 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:column filterBy="#{cat.idCategorie}" headerText="ID"
-					filterMatchMode="contains">
-					<h:outputText value="#{cat.idCategorie}" />
-				</p:column>
 
 				<p:column filterBy="#{cat.nomCategorie}" headerText="Nom"
 					filterMatchMode="contains">
-					<h:outputText value="#{cat.nomCategorie}" />
+					<p:commandLink value="#{cat.nomCategorie}"
+						action="#{prMB.searchProduitBy}">
+					<f:setPropertyActionListener value="#{cat.idCategorie}"
+							target="#{prMB.categorie.idCategorie}" />
+					</p:commandLink>
 				</p:column>
 
 				<p:column filterBy="#{cat.description}" headerText="Description"
