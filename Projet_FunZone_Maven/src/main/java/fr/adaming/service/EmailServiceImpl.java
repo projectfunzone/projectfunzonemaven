@@ -41,8 +41,8 @@ public class EmailServiceImpl implements IEmailService {
 	 */
 	@Override
 	public void email(Client cl, String objetMail, String corpsMail, String nomPDF, String corpsPDF) {
-		final String username = "projectfunzone@gmail.com";
-		final String password = "12root34";
+		final String username = "projectfunzone44@gmail.com";
+		final String password = "funzone44";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
