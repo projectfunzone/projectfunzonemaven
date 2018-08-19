@@ -254,7 +254,7 @@ public class PanierManagedBean implements Serializable {
 					// on ajoute à la session PanierClient la nouveau panier
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("panierClient", panier);
 
-					return "";
+					return "panierAfficher";
 
 				} else {
 

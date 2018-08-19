@@ -19,17 +19,18 @@
 				</p:column>
 
 				<p:column headerText="Quantité">
-					<p:commandLink value="suppr" action="#{panMB.supprProdPanierDirect}" update="tableau">
+					<p:commandButton icon="ui-icon-circle-minus" action="#{panMB.supprProdPanierDirect}" update="tableau">
 						<f:setPropertyActionListener value="#{lc}" target="#{panMB.ligneCommande}" />
-					</p:commandLink>
+					</p:commandButton>
 
 
-		
+					
 					<h:outputText id="qte" value="#{lc.quantite}" />
 					
-					<p:commandLink value="ajout" action="#{panMB.ajoutProdPanierDirect}" update="qte, prix">
+					
+					<p:commandButton icon="ui-icon-circle-plus" action="#{panMB.ajoutProdPanierDirect}" update="qte, prix">
 						<f:setPropertyActionListener value="#{lc}" target="#{panMB.ligneCommande}" />
-					</p:commandLink>
+					</p:commandButton>
 				</p:column>
 
 				<p:column headerText="Prix">

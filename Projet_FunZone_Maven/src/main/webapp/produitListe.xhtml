@@ -26,14 +26,7 @@
 					</p:outputPanel>
 				</f:facet>
 
-				<p:column filterBy="#{pr.idProduit}" headerText="ID"
-					filterMatchMode="contains">
-					<h:outputText value="#{pr.idProduit}" />
-				</p:column>
 
-				<p:column headerText="Vente">
-					<p:commandLink value="Ajouter au panier" action="pan.xhtml" />
-				</p:column>
 
 				<p:column filterBy="#{pr.designation}" headerText="Nom"
 					filterMatchMode="contains">
@@ -53,10 +46,19 @@
 				</p:column>
 
 				<p:column filterBy="#{pr.quantite}" headerText="Quantite disponible"
-					filterFunction="#{pMB.filterByPrice}">
+					filterFunction="#{prMB.filterByPrice}">
 					<h:outputText value="#{pr.quantite}">
 						<f:convertNumber currencySymbol="" type="currency" />
 					</h:outputText>
+
+
+					<p:commandButton value="Ajouter au panier"
+						action="#{panMB.addProdPanier}">
+						<f:setPropertyActionListener value="#{pr}"
+							target="#{panMB.produit}" />
+							<f:setPropertyActionListener value="1"
+							target="#{panMB.quantite}" />
+					</p:commandButton>
 				</p:column>
 
 				<p:column headerText="Image">
