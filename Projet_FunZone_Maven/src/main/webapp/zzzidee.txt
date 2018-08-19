@@ -1,9 +1,7 @@
 AFFICHAGE:
-armure ironman
-tableau parallele
-interface backk office distinct de front office
+idée produit : armure ironman, ration de survie
 base de donnée fournie
-ration de survie
+
 
 
 METIER:
@@ -20,6 +18,7 @@ coté client
 - Vente flash/kit de depart a rendre fonctionnel
 
 - ajouter plusieurs fois le meme produit effectue une incremantation du nombre dans le panier
+
 - galerie produits à partir de la liste des produits
 
 côté admin
@@ -31,7 +30,6 @@ côté admin
 - gestions des stocks (creer commande)
 - classe mail à faire
 - validator pour mdp, adresse mail, adresse
-- password en caché
 - Liste Produits/Categorie :
 	- liste déroulante à la place de la saisie des ID
 	- modifier/supprimer sans passer par une saisie
