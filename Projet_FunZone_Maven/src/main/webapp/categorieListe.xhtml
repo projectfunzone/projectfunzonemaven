@@ -9,7 +9,8 @@
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<ui:define name="contentTab">
-		<h1>Liste des catégories</h1>
+
+		<h1 style="color: #2FFF2F; text-align: center">Toutes les types de produits</h1>
 
 		<h:form>
 			<p:dataTable var="cat" value="#{catMB.listeCategorie}"
@@ -31,7 +32,7 @@
 					filterMatchMode="contains">
 					<p:commandLink value="#{cat.nomCategorie}"
 						action="#{prMB.searchProduitBy}">
-					<f:setPropertyActionListener value="#{cat.idCategorie}"
+						<f:setPropertyActionListener value="#{cat.idCategorie}"
 							target="#{prMB.categorie.idCategorie}" />
 					</p:commandLink>
 				</p:column>

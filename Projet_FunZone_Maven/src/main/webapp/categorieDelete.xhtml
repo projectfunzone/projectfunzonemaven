@@ -7,26 +7,28 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Supprimer une catégorie</title>
-	<h:outputStylesheet library="css" name="style.css"  />
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 	<ui:insert>
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
-<h1>Supprimer une catégorie</h1>
 
-<h:form>
-	<h:panelGrid columns="2">
-	Id: <p:inputText value="#{catMB.categorie.idCategorie}"/>
-		
-	</h:panelGrid>
-	<p:commandButton value="Supprimer" action="#{catMB.deleteCategorie}" update="@all"/>
-	
-	
+	<h1 style="color: #C0C0C0; text-align: center">Supprimer une
+		catégorie</h1>
 
-</h:form>
-	<h1 style="color: red; text-align: center">
+	<h:form>
+		<h:panelGrid columns="2">
+	Id: <p:inputText value="#{catMB.categorie.idCategorie}" />
+
+		</h:panelGrid>
+		<p:commandButton value="Supprimer" action="#{catMB.deleteCategorie}"
+			update="@all" />
+	</h:form>
+
+	<h1 style="color: #C0C0C0; text-align: center">
 		<h:messages />
-		</h1>
+	</h1>
+
 </h:body>
 </html>

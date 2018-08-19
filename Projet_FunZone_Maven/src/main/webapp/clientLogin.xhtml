@@ -9,7 +9,7 @@
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<ui:define name="contentTab">
-		<h1>Connexion Client</h1>
+		<h1 style="color: #2FFF2F; text-align: center">Connexion Client</h1>
 
 		<h:form>
 			<h:panelGrid columns="2">
@@ -17,7 +17,7 @@
 					required="true" />
 		Mot de passe*: <h:inputSecret value="#{clMB.client.mdpClient}"
 					label="Mot de passe" required="true" />
-
+				<br />
 			</h:panelGrid>
 
 			<p:commandButton value="Se connecter" action="#{clMB.seConnecter}"
@@ -28,7 +28,8 @@
 		<h:form>
 			<p:commandLink value="Pas encore client ?" action="clientAdd.xhtml" />
 		</h:form>
-		<h1 style="color: red; text-align: center">
+
+		<h1 style="color: #C0C0C0; text-align: center">
 			<h:messages />
 		</h1>
 

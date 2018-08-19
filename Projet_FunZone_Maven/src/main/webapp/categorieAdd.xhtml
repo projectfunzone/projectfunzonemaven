@@ -13,6 +13,8 @@
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
 
+	<h1 style="color: #C0C0C0; text-align: center">Ajouter une
+		categorie</h1>
 	<h:form>
 		<h:panelGrid columns="2">
 		Nom de la catégorie*: <p:inputText
@@ -21,11 +23,12 @@
 		Description : <p:inputText value="#{catMB.categorie.description}" />
 		Photo : <p:fileUpload value="#{catMB.categorie.file}" mode="simple"
 				skinSimple="true" />
-			<p:commandButton value="ajouter" action="#{catMB.addCategorie}" update="@all"/>
+			<p:commandButton value="ajouter" action="#{catMB.addCategorie}"
+				update="@all" />
 		</h:panelGrid>
 	</h:form>
 
-	<h1 style="color: red; text-align: center">
+	<h1 style="color: #C0C0C0; text-align: center">
 		<h:messages />
 	</h1>
 

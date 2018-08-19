@@ -15,7 +15,7 @@
 		<ui:include src="/templates/adminHeader.xhtml" />
 	</ui:insert>
 
-	<h1>Liste des clients de FunZone</h1>
+	<h1 style="color: #C0C0C0; text-align: center">Liste des clients de FunZone</h1>
 	<p:dataTable var="cl" value="#{clMB.listeAllClients}">
 
 		<p:column headerText="Id">
@@ -38,6 +38,10 @@
 			<h:outputText value="#{cl.tel}" />
 		</p:column>
 	</p:dataTable>
+	
+	<h1 style="color: #C0C0C0; text-align: center">
+		<h:messages />
+	</h1>
 
 </h:body>
 </html>
