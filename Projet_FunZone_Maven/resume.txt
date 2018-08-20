@@ -1,4 +1,4 @@
-1: Fichier pom.xml : charger toutes les librairies, click droit -> maven -> update -> forceUpdate
+1:  Fichier pom.xml : charger toutes les librairies, click droit -> maven -> update -> forceUpdate
 Bien penser à charger les modules permettant l'intégration des librairie dans spring
 (Web pour jsf, orm pour hibernate, etc)
 
