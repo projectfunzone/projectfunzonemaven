@@ -1,73 +1,87 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
-	<h:head>
-		<title>Promotion en folie</title>
-		<h:outputStylesheet library="css" name="style.css" />
-	</h:head>
-	<ui:define name="contentTab">
-	
-		<h1 style="color: #2FFF2F; text-align: center">Les bons plans du moment...</h1>
-		<br/>
-		<p>Faites des bonnes affaires ! Profitez des meilleurs prix toute
-			l'année avec nos ventes flash, nos petits prix, nos bons plans et nos
-			déstockages dans tous nos rayons. C’est l’occasion de retrouver vos
-			marques et produits préférés pas chers et de découvrir nos nouvelles
-			offres au meilleur prix !</p>
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Des armes pour les Supers Héros</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<ui:composition template="${headerMB.header}">
+		<h:head>
+			<title>Promotion en folie</title>
+			<h:outputStylesheet library="css" name="style.css" />
+		</h:head>
+		<ui:define name="contentTab">
 
-		<h:form>
-			<p:dataTable var="pr" value="#{prMB.listeProduitsFlash}"
-				widgetVar="produitsTable"
-				emptyMessage="Pas de produits trouvés pour ces critères"
-				filteredValue="#{prMB.listeProduitFiltre}">
+			<h1 style="color: #2FFF2F; text-align: center">Les bons plans du
+				moment...</h1>
+			<br />
+			<p>Faites des bonnes affaires ! Profitez des meilleurs prix toute
+				l'année avec nos ventes flash, nos petits prix, nos bons plans et
+				nos déstockages dans tous nos rayons. C’est l’occasion de retrouver
+				vos marques et produits préférés pas chers et de découvrir nos
+				nouvelles offres au meilleur prix !</p>
 
-				<f:facet name="header">
-					<p:outputPanel>
-						<h:outputText value="Rechercher sur les champs :" />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('produitsTable').filter()" style="width:150px"
-							placeholder="mot clef" />
-					</p:outputPanel>
-				</f:facet>
+			<h:form>
+				<p:dataTable var="pr" value="#{prMB.listeProduitsFlash}"
+					widgetVar="produitsTable"
+					emptyMessage="Pas de produits trouvés pour ces critères"
+					filteredValue="#{prMB.listeProduitFiltre}">
 
-				<p:column filterBy="#{pr.idProduit}" headerText="ID" filterMatchMode="contains">
-					<h:outputText value="#{pr.idProduit}" />
-				</p:column>
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Rechercher sur les champs :" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('produitsTable').filter()" style="width:150px"
+								placeholder="mot clef" />
+						</p:outputPanel>
+					</f:facet>
 
-				<p:column headerText="Vente">
-					<p:commandLink value="Ajouter au panier" action="addPanier.xhtml" />
-				</p:column>
+					<p:column filterBy="#{pr.idProduit}" headerText="ID"
+						filterMatchMode="contains">
+						<h:outputText value="#{pr.idProduit}" />
+					</p:column>
 
-				<p:column filterBy="#{pr.designation}" headerText="Nom" filterMatchMode="contains">
-					<h:outputText value="#{pr.designation}" />
-				</p:column>
+					<p:column headerText="Vente">
+						<p:commandLink value="Ajouter au panier" action="addPanier.xhtml" />
+					</p:column>
 
-				<p:column filterBy="#{pr.description}" headerText="Description" filterMatchMode="contains">
-					<h:outputText value="#{pr.description}" />
-				</p:column>
+					<p:column filterBy="#{pr.designation}" headerText="Nom"
+						filterMatchMode="contains">
+						<h:outputText value="#{pr.designation}" />
+					</p:column>
 
-				<p:column filterBy="#{pr.prix}" headerText="Prix" filterFunction="#{pMB.filterByPrice}">
-					<h:outputText value="#{pr.prix}" style="color : red">
-						<f:convertNumber currencySymbol="€" type="currency" />
-					</h:outputText>
-				</p:column>
+					<p:column filterBy="#{pr.description}" headerText="Description"
+						filterMatchMode="contains">
+						<h:outputText value="#{pr.description}" />
+					</p:column>
 
-				<p:column filterBy="#{pr.quantite}" headerText="Quantite disponible"
-					filterFunction="#{prMB.filterByPrice}">
-					<h:outputText value="#{pr.quantite}">
-						<f:convertNumber currencySymbol="" type="currency" />
-					</h:outputText>
-				</p:column>
+					<p:column filterBy="#{pr.prix}" headerText="Prix"
+						filterFunction="#{pMB.filterByPrice}">
+						<h:outputText value="#{pr.prix}" style="color : red">
+							<f:convertNumber currencySymbol="€" type="currency" />
+						</h:outputText>
+					</p:column>
 
-				<p:column headerText="Image">
-					<h:graphicImage value="#{pr.image}"
-						style="width:100px; height:100px" />
-				</p:column>
-			</p:dataTable>
-		</h:form>
+					<p:column filterBy="#{pr.quantite}"
+						headerText="Quantite disponible"
+						filterFunction="#{prMB.filterByPrice}">
+						<h:outputText value="#{pr.quantite}">
+							<f:convertNumber currencySymbol="" type="currency" />
+						</h:outputText>
+					</p:column>
 
-	</ui:define>
-</ui:composition>
+					<p:column headerText="Image">
+						<h:graphicImage value="#{pr.image}"
+							style="width:100px; height:100px" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</h:html>
+

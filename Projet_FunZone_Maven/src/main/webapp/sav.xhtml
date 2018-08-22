@@ -1,24 +1,32 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
-	<h:head>
-		<title>Service Après-vente</title>
-		<h:outputStylesheet library="css" name="common-style.css" />
-	</h:head>
-	<ui:define name="contentTab">
-		<h1 style="color: #2FFF2F; text-align: center">"Service
-			après-vente bonjour !"</h1>
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Des armes pour les Supers Héros</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<ui:composition template="${headerMB.header}">
+		<h:head>
+			<title>Service Après-vente</title>
+			<h:outputStylesheet library="css" name="common-style.css" />
+		</h:head>
+		<ui:define name="contentTab">
+			<h1 style="color: #2FFF2F; text-align: center">"Service
+				après-vente bonjour !"</h1>
 
-		<p>Il vous suffit de contacter l'un de nos techniciens par
-			téléphone au 123 456 789 (prix d'un appel local) ou de vous présenter
-			au magasin relai le plus proche de chez vous. La seule condition à
-			remplir pour être pris en charge, est que nos produits y soient
-			commercialisées.</p>
+			<p>Il vous suffit de contacter l'un de nos techniciens par
+				téléphone au 123 456 789 (prix d'un appel local) ou de vous
+				présenter au magasin relai le plus proche de chez vous. La seule
+				condition à remplir pour être pris en charge, est que nos produits y
+				soient commercialisées.</p>
 
-		<p:graphicImage src="../resources/img/sav-des-emissions.jpg"
-			alt="NotreSAV" />
-	</ui:define>
-</ui:composition>
+			<p:graphicImage src="../resources/img/sav-des-emissions.jpg"
+				alt="NotreSAV" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</h:html>
+

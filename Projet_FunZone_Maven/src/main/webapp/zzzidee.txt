@@ -1,39 +1,39 @@
-AFFICHAGE:
-idée produit : armure ironman, ration de survie
-base de donnée fournie
+GENERAL:
 
 
 
-METIER:
+FRONT-OFFICE:
 
-coté client
 - Commande / Panier
 	- confirmation sur les decisions panier/creer
 	- amelioration facture
 		- recap commande avec liste de produits
 		- adresse
 		- ajouter le logo
-		
-- Compte client
 
 - Vente flash/kit de depart a rendre fonctionnel : probleme de liste
 
+- Affichage des images
+
+- afficher dans le compte client, la liste des commandes
 
 
 
-
-côté admin
-- Categorie : 
-	- clic : envoyer sur la liste des produits associés
+BACK-OFFICE:
 - Produit : 
 	- clic :envoyer sur modifier produit
 	- modifier la categorie
 
+- Validator pour mdp, adresse mail, adresse
 
-
-- validator pour mdp, adresse mail, adresse
 - Liste Produits/Categorie :
 	- liste déroulante à la place de la saisie des ID
 	- modifier/supprimer sans passer par une saisie
 	
-- traduction du site ?
+- notification des actions effectuées plutot qu'affichage de message
+
+- indication "connecté en tant que" sur la barre de navigation
+
+- primefaces KNOB pour modifier le prix
+	
+- Traduction du site ?

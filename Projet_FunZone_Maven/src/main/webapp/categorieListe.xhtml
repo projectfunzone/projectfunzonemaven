@@ -1,52 +1,63 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
-	<h:head>
-		<title>Les catégories</title>
-		<h:outputStylesheet library="css" name="style.css" />
-	</h:head>
-	<ui:define name="contentTab">
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Des armes pour les Supers Héros</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<ui:composition template="#{headerMB.header}">
+		<h:head>
+			<title>Les catégories</title>
+			<h:outputStylesheet library="css" name="style.css" />
+		</h:head>
+		<ui:define name="contentTab">
 
-		<h1 style="color: #2FFF2F; text-align: center">Toutes les types de produits</h1>
+			<h1 style="color: #2FFF2F; text-align: center">Toutes les types
+				de produits</h1>
 
-		<h:form>
-			<p:dataTable var="cat" value="#{catMB.listeCategorie}"
-				widgetVar="categoriesTable"
-				emptyMessage="Pas de catégorie trouvées pour ces critères"
-				filteredValue="#{catMB.listeCategorieFiltre}">
+			<h:form>
+				<p:dataTable var="cat" value="#{catMB.listeCategorie}"
+					widgetVar="categoriesTable"
+					emptyMessage="Pas de catégorie trouvées pour ces critères"
+					filteredValue="#{catMB.listeCategorieFiltre}">
 
-				<f:facet name="header">
-					<p:outputPanel>
-						<h:outputText value="Rechercher sur les champs :" />
-						<p:inputText id="globalFilter"
-							onkeyup="PF('categoriesTable').filter()" style="width:150px"
-							placeholder="mot clef" />
-					</p:outputPanel>
-				</f:facet>
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Rechercher sur les champs :" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('categoriesTable').filter()" style="width:150px"
+								placeholder="mot clef" />
+						</p:outputPanel>
+					</f:facet>
 
 
-				<p:column filterBy="#{cat.nomCategorie}" headerText="Nom"
-					filterMatchMode="contains">
-					<p:commandLink value="#{cat.nomCategorie}"
-						action="#{prMB.searchProduitBy}">
-						<f:setPropertyActionListener value="#{cat.idCategorie}"
-							target="#{prMB.categorie.idCategorie}" />
-					</p:commandLink>
-				</p:column>
+					<p:column filterBy="#{cat.nomCategorie}" headerText="Nom"
+						filterMatchMode="contains">
+						<p:commandLink value="#{cat.nomCategorie}"
+							action="#{prMB.searchProduitBy}">
+							<f:setPropertyActionListener value="#{cat.idCategorie}"
+								target="#{prMB.categorie.idCategorie}" />
+						</p:commandLink>
+					</p:column>
 
-				<p:column filterBy="#{cat.description}" headerText="Description"
-					filterMatchMode="contains">
-					<h:outputText value="#{cat.description}" />
-				</p:column>
+					<p:column filterBy="#{cat.description}" headerText="Description"
+						filterMatchMode="contains">
+						<h:outputText value="#{cat.description}" />
+					</p:column>
 
-				<p:column headerText="Image">
-					<h:graphicImage value="#{cat.image}"
-						style="width:100px; height:100px" />
-				</p:column>
-			</p:dataTable>
-		</h:form>
-	</ui:define>
-</ui:composition>
+					<p:column headerText="Image">
+						<h:graphicImage value="#{cat.image}"
+							style="width:100px; height:100px" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</h:html>
+
+
+

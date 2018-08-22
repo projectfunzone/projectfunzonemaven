@@ -1,23 +1,27 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	template="${pageContext.request.contextPath}/templates/templateClient.xhtml">
-	<h:head>
-		<title>Des armes pour les Supers Héros</title>
-		<h:outputStylesheet library="css" name="style.css" />
-	</h:head>
-	<ui:define name="contentTab">
-
-		<h1 style="color: #2FFF2F; text-align: center; font-family: italic">Bienvenu</h1>
-		<br />
-		<!-- Galerie promotionnelle affichant les produits disponibles sur le site -->
-		<p:contentFlow value="#{imgMB.images}" var="image">
-			<p:graphicImage
-				value="${pageContext.request.contextPath}/resources/img/${image}"
-				styleClass="content" cache="false" />
-			<div class="caption">#{image}</div>
-		</p:contentFlow>
-	</ui:define>
-</ui:composition>
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Des armes pour les Supers Héros</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<ui:composition template="#{headerMB.header}">
+	
+		<ui:define name="contentTab">
+			<h1 style="color: #2FFF2F; text-align: center; font-family: italic">Bienvenu</h1>
+			<br /> 
+			<!-- Galerie promotionnelle affichant les produits disponibles sur le site -->
+			<p:contentFlow value="#{imgMB.images}" var="image">
+				<h:graphicImage
+					value="/resources/img/${image}"
+					styleClass="content" cache="false" />
+				<div class="caption">#{image}</div>
+				
+			</p:contentFlow>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</h:html>
